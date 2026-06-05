@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, type KeyboardEvent, type MouseEvent } from 'react';
 import { useRouter } from 'next/navigation';
-import { ChevronRight, ShoppingCart, ShoppingBag, Heart, Star, ArrowLeft, Search, Filter } from 'lucide-react';
+import { ShoppingCart, ShoppingBag, Heart, Star, Search } from 'lucide-react';
 
 // Fade in animation hook
 function useInView(threshold = 0.1) {
@@ -168,15 +168,39 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
     const [isActive, setIsActive] = useState(false);
     const { ref, isVisible } = useFadeIn(index, 100);
 
-    const handleClick = () => {
+    const openProduct = () => {
         setIsActive(true);
-        setTimeout(() => setIsActive(false), 200);
+
+        setTimeout(() => {
+            setIsActive(false);
+            router.push(`/shop/${product.id}`);
+        }, 120);
+    };
+
+    const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            openProduct();
+        }
+    };
+
+    const handleWishlistClick = (event: MouseEvent<HTMLButtonElement>) => {
+        event.stopPropagation();
+        // Add wishlist logic here later.
+    };
+
+    const handleCartClick = (event: MouseEvent<HTMLButtonElement>) => {
+        event.stopPropagation();
+        router.push(`/shop/${product.id}`);
     };
 
     return (
         <div
             ref={ref}
-            onClick={handleClick}
+            onClick={openProduct}
+            onKeyDown={handleKeyDown}
+            role="button"
+            tabIndex={0}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             className={`bg-white rounded-2xl border border-gray-100 overflow-hidden transition-all duration-500 cursor-pointer group ${isVisible
@@ -210,10 +234,20 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
 
                 {/* Hover actions */}
                 <div className="absolute bottom-3 right-3 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <button className="w-9 h-9 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white shadow-md transition-colors">
+                    <button
+                        type="button"
+                        onClick={handleWishlistClick}
+                        className="w-9 h-9 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white shadow-md transition-colors"
+                        aria-label={`Add ${product.name} to wishlist`}
+                    >
                         <Heart size={16} className="text-gray-600 hover:text-red-500" />
                     </button>
-                    <button className="w-9 h-9 bg-teal-500 rounded-full flex items-center justify-center hover:bg-teal-600 shadow-md transition-colors">
+                    <button
+                        type="button"
+                        onClick={handleCartClick}
+                        className="w-9 h-9 bg-teal-500 rounded-full flex items-center justify-center hover:bg-teal-600 shadow-md transition-colors"
+                        aria-label={`Buy ${product.name}`}
+                    >
                         <ShoppingCart size={16} className="text-white" />
                     </button>
                 </div>
@@ -344,4 +378,3 @@ export default function ShopPage() {
         </div>
     );
 }
-
