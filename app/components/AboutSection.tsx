@@ -16,7 +16,7 @@ export function AboutSection({ experiences }: AboutSectionProps) {
                     <div>
                         <h2 className="text-5xl font-bold mb-6">My Work Experience</h2>
                         <p className="text-gray-600 mb-8">
-                            I have been working as a UI/UX designer for over 10 years, collaborating with teams from various industries to create exceptional digital experiences.
+                            I have been working as a Programmer for about a year now, but my experience of developing is over a 5years including my senior high school and college, I had the opportunity to collaborate with teams from various industries to create exceptional digital experiences.
                         </p>
                         <div className="space-y-6">
                             {experiences.map((exp, index) => (

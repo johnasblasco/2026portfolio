@@ -54,16 +54,16 @@ const projects = [
 ];
 
 const experiences = [
-    { years: '2020-2023', title: 'Senior UI/UX Designer', company: 'Tech Corp' },
-    { years: '2018-2020', title: 'Product Designer', company: 'Design Studio' },
-    { years: '2016-2018', title: 'Junior Designer', company: 'Creative Agency' }
+    { years: 'JAN 2026 - PRESENT', title: 'Senior Developer', company: 'C8nnect IT Solutions' },
+    { years: 'JUL 2025 - JAN 2025', title: 'Junior Developer', company: 'SNL Virtual Partner' },
+    { years: 'JAN 2025 - MAY 2025', title: 'Intern (Entry Level) Developer', company: 'Simplevia Technologies inc.' }
 ];
 
 
 const contactInfo = [
-    { icon: <Mail size={20} />, type: 'Email', value: 'binjan@example.com', color: 'bg-teal-100' },
-    { icon: <Phone size={20} />, type: 'Phone', value: '+1 (555) 123-4567', color: 'bg-orange-100' },
-    { icon: <MapPin size={20} />, type: 'Location', value: 'San Francisco, CA', color: 'bg-red-100' }
+    { icon: <Mail size={20} />, type: 'Email', value: 'johnaslblasco@gmail.com', color: 'bg-teal-100' },
+    { icon: <Phone size={20} />, type: 'Phone', value: '+63 (985) 926-8228', color: 'bg-orange-100' },
+    { icon: <MapPin size={20} />, type: 'Location', value: 'City of Malolos, Bulacan', color: 'bg-red-100' }
 ];
 
 

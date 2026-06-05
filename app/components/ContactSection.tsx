@@ -38,13 +38,13 @@ export function ContactSection({ contactInfo }: ContactSectionProps) {
                             ))}
                         </div>
                         <div className="flex gap-4 mt-8">
-                            <a href="#" className="bg-gray-900 text-white w-12 h-12 rounded-full flex items-center justify-center hover:bg-gray-800 transition-colors">
+                            <a href="https://github.com/johnasblasco" className="bg-gray-900 text-white w-12 h-12 rounded-full flex items-center justify-center hover:bg-gray-800 transition-colors">
                                 <FiGithub size={20} />
                             </a>
-                            <a href="#" className="bg-gray-900 text-white w-12 h-12 rounded-full flex items-center justify-center hover:bg-gray-800 transition-colors">
+                            <a href="https://www.linkedin.com/in/johnasblasco/" className="bg-gray-900 text-white w-12 h-12 rounded-full flex items-center justify-center hover:bg-gray-800 transition-colors">
                                 <FiLinkedin size={20} />
                             </a>
-                            <a href="#" className="bg-gray-900 text-white w-12 h-12 rounded-full flex items-center justify-center hover:bg-gray-800 transition-colors">
+                            <a href="https://x.com/johnasblasco" className="bg-gray-900 text-white w-12 h-12 rounded-full flex items-center justify-center hover:bg-gray-800 transition-colors">
                                 <FiTwitter size={20} />
                             </a>
                         </div>

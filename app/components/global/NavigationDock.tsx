@@ -13,7 +13,7 @@ export default function NavigationDock() {
   const items = [
     { icon: <TiHome size={18} />, label: 'Home', onClick: () => router.push('/') },
     { icon: <IoApps size={18} />, label: 'Application', onClick: () => router.push('/applications') },
-    { icon: <TiUser size={18} />, label: 'Profile', onClick: () => alert('Profile!') },
+    { icon: <TiUser size={18} />, label: 'Profile', onClick: () => router.push('/profile') },
     { icon: <CiShoppingCart size={18} />, label: 'Shop', onClick: () => alert('Shop!') },
   ];
 
