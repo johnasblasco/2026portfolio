@@ -18,7 +18,7 @@ export function ServicesSection({ services }: ServicesSectionProps) {
                 <div className="text-center mb-16">
                     <h2 className="text-5xl font-bold mb-4">What do I help?</h2>
                     <p className="text-gray-600 max-w-2xl mx-auto">
-                        I will help you with finding a solution and solve your problem. We use process design to create digital products with unique ideas.
+                        I will help you with finding a solution and solve your problem. I use process design to create digital products with unique ideas and build it.
                     </p>
                 </div>
 

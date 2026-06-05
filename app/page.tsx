@@ -1,5 +1,5 @@
 'use client';
-import { Mail, MapPin, Phone, Briefcase, Code, Palette } from 'lucide-react';
+import { Mail, MapPin, Smartphone, Phone, Code, MonitorCog } from 'lucide-react';
 
 import { Navigation } from './components/Navigation';
 import { HeroSection } from './components/HeroSection';
@@ -12,20 +12,20 @@ import { Footer } from './components/Footer';
 const services = [
     {
         icon: Code,
-        title: 'Website Design',
-        description: 'I created digital products with unique ideas use Figma & Framer',
+        title: 'Web Application ',
+        description: 'Website system is a software application that runs on a web server and is accessed through a web browser. It provides various functionalities such as content management, e-commerce, social networking, and more.',
         color: 'bg-teal-500'
     },
     {
-        icon: Briefcase,
-        title: 'Mobile App Design',
-        description: 'I created digital products with unique ideas use Figma & Framer',
+        icon: Smartphone,
+        title: 'Mobile Application',
+        description: 'Mobile applications are software applications that are designed to run on mobile devices such as smartphones and tablets. They provide a range of functionalities from simple utilities to complex business solutions.',
         color: 'bg-orange-500'
     },
     {
-        icon: Palette,
-        title: 'Brand Identity',
-        description: 'I created digital products with unique ideas use Figma & Framer',
+        icon: MonitorCog,
+        title: 'Custom Software',
+        description: 'Custom software development involves creating tailored solutions that meet specific business needs. I specialize in building robust, scalable applications that drive efficiency and growth. eg B2B, ERP...',
         color: 'bg-red-500'
     }
 ];
