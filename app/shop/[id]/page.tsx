@@ -2,81 +2,113 @@
 
 import { useState, type ReactNode } from 'react';
 import { useRouter, useParams } from 'next/navigation';
-import { ChevronLeft, ShoppingCart, ArrowLeft, CheckCircle, Shield, RefreshCcw, Headphones, Package } from 'lucide-react';
+import { ChevronLeft, ShoppingCart, ArrowLeft, CheckCircle, Shield, RefreshCcw, Headphones, Package, ShoppingBag, BarChart3, Users, Zap } from 'lucide-react';
 
 // Product type
 interface Product {
   id: number;
   name: string;
+  tagline: string;
   description: string;
   price: number;
   image: string;
   category: string;
   rating: number;
+  reviews: number;
   inStock: boolean;
+  badge?: string;
+  icon: React.ElementType;
+  color: string;
 }
 
-// Sample products
+// Same products as the shop listing page (PHP prices)
 const products: Product[] = [
   {
     id: 1,
-    name: 'Premium Website Template',
-    description: 'Professional responsive template for your business. Includes 10+ page layouts, responsive design, and customizable components.',
-    price: 129,
-    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop',
-    category: 'Templates',
-    rating: 4.8,
-    inStock: true
+    name: 'Point of Sale System',
+    tagline: 'Retail & F&B ready',
+    description: 'Complete POS solution with inventory tracking, sales reports, and multi-branch support.',
+    price: 12500,
+    image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop',
+    category: 'Retail',
+    rating: 4.9,
+    reviews: 128,
+    inStock: true,
+    badge: 'Bestseller',
+    icon: ShoppingCart,
+    color: 'from-teal-400 to-teal-600',
   },
   {
     id: 2,
-    name: 'Mobile App UI Kit',
-    description: 'Complete UI kit with 50+ screens for mobile apps. Includes iOS and Android components, dark mode support, and Figma files.',
-    price: 89,
-    image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&h=400&fit=crop',
-    category: 'UI Kits',
-    rating: 4.9,
-    inStock: true
+    name: 'HR & Payroll System',
+    tagline: 'BIR & SSS compliant',
+    description: 'Automate payroll computation, attendance, leaves, and government contributions with ease.',
+    price: 18900,
+    image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&h=400&fit=crop',
+    category: 'HR',
+    rating: 4.8,
+    reviews: 94,
+    inStock: true,
+    icon: Users,
+    color: 'from-orange-400 to-orange-600',
   },
   {
     id: 3,
-    name: 'Brand Identity Package',
-    description: 'Logo, color palette, and style guide for your brand. Includes multiple logo variations, brand book, and social media assets.',
-    price: 249,
-    image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&h=400&fit=crop',
-    category: 'Branding',
+    name: 'Inventory Management',
+    tagline: 'Real-time stock control',
+    description: 'Monitor stock levels, automate reordering, manage suppliers, and generate inventory reports.',
+    price: 9500,
+    image: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=600&h=400&fit=crop',
+    category: 'Operations',
     rating: 4.7,
-    inStock: true
+    reviews: 76,
+    inStock: true,
+    icon: Package,
+    color: 'from-red-400 to-red-600',
   },
   {
     id: 4,
-    name: 'Dashboard Analytics',
-    description: 'Modern dashboard with charts and data visualization. Includes real-time data, customizable widgets, and dark/light themes.',
-    price: 99,
+    name: 'Accounting & Finance',
+    tagline: 'BIR e-filing integrated',
+    description: 'Full bookkeeping, invoicing, financial statements, and VAT/withholding tax reports.',
+    price: 22000,
     image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop',
-    category: 'Dashboards',
+    category: 'Finance',
     rating: 4.9,
-    inStock: true
+    reviews: 112,
+    inStock: true,
+    badge: 'Popular',
+    icon: BarChart3,
+    color: 'from-indigo-400 to-indigo-600',
   },
   {
     id: 5,
-    name: 'E-commerce Platform',
-    description: 'Full e-commerce solution with cart and checkout. Includes product management, payment integration, and order tracking.',
-    price: 299,
-    image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop',
-    category: 'Platforms',
+    name: 'CRM & Sales Pipeline',
+    tagline: 'Leads to loyal customers',
+    description: 'Track leads, manage customer relationships, automate follow-ups, and forecast sales.',
+    price: 15800,
+    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop',
+    category: 'Sales',
     rating: 4.8,
-    inStock: true
+    reviews: 88,
+    inStock: true,
+    icon: Zap,
+    color: 'from-amber-400 to-amber-600',
   },
   {
     id: 6,
-    name: 'Portfolio Template',
-    description: 'Beautiful portfolio template to showcase your work. Includes projects grid, about section, contact form, and blog integration.',
-    price: 69,
-    image: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=600&h=400&fit=crop',
-    category: 'Templates',
+    name: 'Hospital & Clinic System',
+    tagline: 'Patient-first records',
+    description: 'EMR, appointment scheduling, billing, pharmacy module, and PhilHealth/HMO processing.',
+    price: 35000,
+    image: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600&h=400&fit=crop',
+    category: 'Healthcare',
     rating: 4.9,
-    inStock: true
+    reviews: 61,
+    inStock: true,
+    badge: 'Enterprise',
+    icon: Shield,
+    color: 'from-gray-400 to-gray-600',
   },
 ];
 
@@ -227,7 +259,7 @@ const paymentGroups: PaymentGroup[] = [
 ];
 
 // Star rating component
-function StarRating({ rating }: { rating: number }) {
+function StarRating({ rating, reviews }: { rating: number; reviews?: number }) {
   return (
     <div className="flex items-center gap-1">
       <div className="flex">
@@ -238,17 +270,14 @@ function StarRating({ rating }: { rating: number }) {
         ))}
       </div>
       <span className="text-xs text-gray-400 ml-0.5">{rating}</span>
+      {reviews && <span className="text-xs text-gray-300">({reviews})</span>}
     </div>
   );
 }
 
 // Format price in PHP
-const formatPrice = (price: number) =>
-  new Intl.NumberFormat('en-PH', { style: 'currency', currency: 'PHP' }).format(price * 57); // rough USD→PHP
-
-// Also keep USD for reference
-const formatUSD = (price: number) =>
-  new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(price);
+const formatPHP = (amount: number) =>
+  new Intl.NumberFormat('en-PH', { style: 'currency', currency: 'PHP', maximumFractionDigits: 0 }).format(amount);
 
 export default function PaymentPage() {
   const router = useRouter();
@@ -256,7 +285,7 @@ export default function PaymentPage() {
   const [selectedPayment, setSelectedPayment] = useState('gcash');
   const [quantity, setQuantity] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [paymentSuccess, setPaymentSuccess] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const productId = Number(params?.id);
   const product = products.find((p) => p.id === productId);
@@ -265,10 +294,54 @@ export default function PaymentPage() {
   const handlePayment = async () => {
     if (!product) return;
     setIsSubmitting(true);
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    setIsSubmitting(false);
-    setPaymentSuccess(true);
-    setTimeout(() => router.push('/shop/success'), 3000);
+    setError(null);
+
+    try {
+      const response = await fetch('/api/paymongo/create-payment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          productName: product.name,
+          amount: product.price,
+          quantity: quantity,
+          paymentMethod: selectedPayment,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Payment initialization failed');
+      }
+
+      // Handle different response types from PayMongo
+      switch (data.type) {
+        case 'redirect':
+          // For GCash, GrabPay, and other redirect-based methods
+          window.location.href = data.checkoutUrl;
+          break;
+        case 'card':
+          // For card payments - would need @paymongo/paymongo-js integration
+          // For now, show error that card payments need frontend integration
+          setError('Card payments require additional setup. Please choose another method.');
+          setIsSubmitting(false);
+          break;
+        case 'qr':
+          // For QR Ph payments - show QR code
+          router.push(`/shop/payment?qr=${encodeURIComponent(data.qrImageUrl)}&id=${data.paymentIntentId}`);
+          break;
+        case 'success':
+          // Rare case where payment succeeds immediately in test mode
+          router.push('/shop/success');
+          break;
+        default:
+          setError('Unexpected response from payment provider');
+          setIsSubmitting(false);
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Payment failed. Please try again.');
+      setIsSubmitting(false);
+    }
   };
 
   const goBack = () => router.push('/shop');
@@ -289,35 +362,6 @@ export default function PaymentPage() {
             <ArrowLeft size={16} />
             Back to Shop
           </button>
-        </div>
-      </div>
-    );
-  }
-
-  if (paymentSuccess) {
-    return (
-      <div className="min-h-screen bg-white flex items-center justify-center px-4">
-        <div className="bg-white rounded-3xl border border-gray-100 p-10 max-w-md w-full text-center shadow-sm">
-          <div className="w-20 h-20 rounded-full bg-teal-50 flex items-center justify-center mx-auto mb-6">
-            <CheckCircle size={36} className="text-gray-500" />
-          </div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">Payment Successful!</h1>
-          <p className="text-gray-500 text-sm leading-relaxed mb-2">
-            Your payment of <span className="font-semibold text-gray-800">{formatPrice(total)}</span> via{' '}
-            <span className="font-semibold text-gray-800">
-              {paymentGroups.flatMap(g => g.methods).find(m => m.id === selectedPayment)?.name}
-            </span>{' '}
-            has been processed.
-          </p>
-          <p className="text-gray-400 text-xs mb-8">A confirmation receipt will be sent to your email shortly.</p>
-          <div className="flex flex-col gap-3">
-            <button
-              onClick={goBack}
-              className="w-full bg-gray-900 text-white py-3 rounded-xl text-sm font-medium hover:bg-gray-800 transition-colors"
-            >
-              Back to Shop
-            </button>
-          </div>
         </div>
       </div>
     );
@@ -440,8 +484,8 @@ export default function PaymentPage() {
 
               {/* Price display */}
               <div className="bg-gray-50 rounded-xl p-4 mb-4">
-                <p className="text-2xl font-bold text-gray-900">{formatPrice(product.price * quantity)}</p>
-                <p className="text-xs text-gray-400 mt-0.5">≈ {formatUSD(product.price * quantity)} USD</p>
+                <p className="text-2xl font-bold text-gray-900">{formatPHP(product.price * quantity)}</p>
+                <p className="text-xs text-gray-400 mt-0.5">PHP</p>
               </div>
 
               {/* Quantity */}
@@ -469,7 +513,7 @@ export default function PaymentPage() {
               <div className="space-y-2 border-t border-gray-100 pt-4">
                 <div className="flex justify-between text-xs text-gray-500">
                   <span>Unit price</span>
-                  <span>{formatPrice(product.price)}</span>
+                  <span>{formatPHP(product.price)}</span>
                 </div>
                 <div className="flex justify-between text-xs text-gray-500">
                   <span>Quantity</span>
@@ -477,7 +521,7 @@ export default function PaymentPage() {
                 </div>
                 <div className="flex justify-between text-sm font-semibold text-gray-900 border-t border-gray-100 pt-2 mt-2">
                   <span>Total</span>
-                  <span>{formatPrice(total)}</span>
+                  <span>{formatPHP(total)}</span>
                 </div>
               </div>
             </div>
@@ -494,6 +538,11 @@ export default function PaymentPage() {
                 </div>
               </div>
 
+              {error && (
+                <div className="p-3 bg-red-50 border border-red-200 rounded-xl mb-4">
+                  <p className="text-xs text-red-600">{error}</p>
+                </div>
+              )}
               <button
                 onClick={handlePayment}
                 disabled={isSubmitting || !product.inStock}
@@ -505,7 +554,7 @@ export default function PaymentPage() {
                     Processing…
                   </>
                 ) : (
-                  <>Pay {formatPrice(total)}</>
+                  <>Pay {formatPHP(total)}</>
                 )}
               </button>
 
