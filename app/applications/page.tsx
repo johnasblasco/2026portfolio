@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { ImageWithFallback } from '../components/image/ImageWithFallback';
-import { ChevronRight, BookOpen, Users, Calendar, LayoutDashboard, FileText, GraduationCap, ArrowLeft } from 'lucide-react';
+import { ChevronRight, HandCoins, Users, Calendar, LayoutDashboard, FileText, GraduationCap, ArrowLeft } from 'lucide-react';
 
 // Fade in animation hook
 function useInView(threshold = 0.1) {
@@ -76,12 +76,12 @@ const myApps = [
     image: '/project1.png'
   },
   {
-    name: 'Library System',
-    description: 'Digital library management with book catalog and borrowing system',
-    icon: BookOpen,
-    color: 'bg-orange-500',
-    href: '/projects/library',
-    tag: 'Management',
+    name: 'Expense Tracker',
+    description: 'Simple expense tracking application for personal finance management',
+    icon: HandCoins,
+    color: 'bg-green-500',
+    href: 'https://personal-money-tracker-red.vercel.app',
+    tag: 'Finance',
     image: 'https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=400&h=250&fit=crop'
   },
   {
