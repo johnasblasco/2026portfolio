@@ -167,8 +167,8 @@ function StarRating({ rating, reviews }: { rating: number; reviews?: number }) {
 
 // ─── Badge ────────────────────────────────────────────────────────────────────
 const badgeColors: Record<string, string> = {
-    Bestseller: 'bg-amber-50 text-amber-700 border-amber-200',
-    Popular: 'bg-indigo-50 text-indigo-700 border-indigo-200',
+    Bestseller: 'bg-orange-50 text-orange-700 border-orange-200',
+    Popular: 'bg-teal-50 text-teal-700 border-teal-200',
     Enterprise: 'bg-gray-100 text-gray-700 border-gray-200',
 };
 
@@ -204,7 +204,7 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
             tabIndex={0}
             className={`group bg-white rounded-2xl border border-gray-100 overflow-hidden cursor-pointer
         transition-all duration-500 hover:-translate-y-1.5 hover:shadow-lg hover:shadow-gray-100 hover:border-gray-200
-        focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2
+        focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-offset-2
         ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
             style={{ transitionDelay: isVisible ? '0ms' : `${index * 80}ms` }}
         >
@@ -219,7 +219,7 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
                 <div className="absolute inset-0 bg-gradient-to-t from-gray-900/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
                 {/* Category pill */}
-                <span className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm text-gray-700 text-[10px] font-semibold px-2.5 py-1 rounded-full border border-white/60">
+                <span className="absolute top-3 left-3 bg-teal-50/90 backdrop-blur-sm text-teal-700 text-[10px] font-semibold px-2.5 py-1 rounded-full border border-teal-100">
                     {product.category}
                 </span>
 
@@ -244,7 +244,7 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
                         type="button"
                         onClick={handleBuy}
                         aria-label={`Buy ${product.name}`}
-                        className="w-8 h-8 bg-gray-900 rounded-full flex items-center justify-center shadow-sm hover:bg-gray-700 transition-colors"
+                        className="w-8 h-8 bg-teal-600 rounded-full flex items-center justify-center shadow-sm hover:bg-teal-700 transition-colors"
                     >
                         <ArrowUpRight size={14} className="text-white" />
                     </button>
@@ -255,11 +255,11 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
             <div className="p-5">
                 {/* Icon + name */}
                 <div className="flex items-start gap-3 mb-3">
-                    <div className="w-9 h-9 rounded-xl bg-indigo-50 flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:bg-indigo-100 transition-colors">
-                        <Icon size={17} className="text-indigo-600" />
+                    <div className="w-9 h-9 rounded-xl bg-teal-50 flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:bg-teal-100 transition-colors">
+                        <Icon size={17} className="text-teal-600" />
                     </div>
                     <div className="min-w-0">
-                        <h3 className="text-sm font-bold text-gray-900 leading-snug group-hover:text-indigo-700 transition-colors truncate">
+                        <h3 className="text-sm font-bold text-gray-900 leading-snug group-hover:text-teal-700 transition-colors truncate">
                             {product.name}
                         </h3>
                         <p className="text-[11px] text-gray-400 mt-0.5">{product.tagline}</p>
@@ -284,7 +284,7 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
                 <button
                     type="button"
                     onClick={handleBuy}
-                    className="w-full flex items-center justify-center gap-1.5 bg-gray-900 hover:bg-gray-700 text-white text-xs font-semibold py-2.5 rounded-xl transition-colors"
+                    className="w-full flex items-center justify-center gap-1.5 bg-teal-600 hover:bg-teal-700 text-white text-xs font-semibold py-2.5 rounded-xl transition-colors"
                 >
                     <ShoppingCart size={13} />
                     Buy Now
@@ -304,7 +304,7 @@ function HeroSection() {
             className={`mb-14 transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
         >
 
-            <div className="flex items-center gap-2 bg-orange-100 text-orange-600 px-4 py-2 rounded-full mb-4">
+            <div className="flex items-center gap-2 bg-teal-100 text-teal-600 px-4 py-2 rounded-full mb-4">
                 <Zap size={12} />
                 Software Solutions
             </div>
@@ -347,7 +347,7 @@ function SearchBar({ value, onChange }: { value: string; onChange: (v: string) =
                 value={value}
                 onChange={(e) => onChange(e.target.value)}
                 className="w-full sm:w-72 pl-10 pr-4 py-2.5 bg-white border border-gray-200 rounded-xl text-sm text-gray-700 placeholder-gray-400
-          focus:outline-none focus:ring-2 focus:ring-indigo-300 focus:border-indigo-300 transition-all shadow-sm"
+          focus:outline-none focus:ring-2 focus:ring-teal-300 focus:border-teal-300 transition-all shadow-sm"
             />
         </div>
     );
@@ -363,8 +363,8 @@ function CategoryFilter({ selected, onSelect }: { selected: string; onSelect: (c
                     onClick={() => onSelect(cat)}
                     className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-200 border
             ${selected === cat
-                            ? 'bg-gray-900 text-white border-gray-900'
-                            : 'bg-white text-gray-600 border-gray-200 hover:border-gray-300 hover:bg-gray-50'
+                            ? 'bg-teal-600 text-white border-teal-600'
+                            : 'bg-white text-gray-600 border-gray-200 hover:border-teal-300 hover:bg-teal-50'
                         }`}
                 >
                     {cat}
@@ -382,7 +382,7 @@ function SortSelect({ value, onChange }: { value: SortKey; onChange: (v: SortKey
         <select
             value={value}
             onChange={(e) => onChange(e.target.value as SortKey)}
-            className="text-xs font-medium text-gray-600 bg-white border border-gray-200 rounded-xl px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-300 shadow-sm cursor-pointer"
+            className="text-xs font-medium text-gray-600 bg-white border border-gray-200 rounded-xl px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-teal-300 shadow-sm cursor-pointer"
         >
             <option value="default">Sort: Default</option>
             <option value="price-asc">Price: Low to High</option>
@@ -415,7 +415,7 @@ export default function ShopPage() {
         });
 
     return (
-        <div className="min-h-screen bg-[#F7F6F2] py-14 pb-20 px-4 sm:px-6">
+        <div className="min-h-screen bg-white py-14 pb-20 px-4 sm:px-6">
             <div className="max-w-6xl mx-auto">
 
                 {/* Hero */}

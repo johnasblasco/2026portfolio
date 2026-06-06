@@ -275,7 +275,7 @@ export default function PaymentPage() {
 
   if (!product) {
     return (
-      <div className="min-h-screen bg-[#F7F6F2] flex items-center justify-center px-4">
+      <div className="min-h-screen bg-white flex items-center justify-center px-4">
         <div className="text-center max-w-sm">
           <div className="w-16 h-16 rounded-2xl bg-gray-100 flex items-center justify-center mx-auto mb-5">
             <ShoppingCart size={28} className="text-gray-400" />
@@ -296,10 +296,10 @@ export default function PaymentPage() {
 
   if (paymentSuccess) {
     return (
-      <div className="min-h-screen bg-[#F7F6F2] flex items-center justify-center px-4">
+      <div className="min-h-screen bg-white flex items-center justify-center px-4">
         <div className="bg-white rounded-3xl border border-gray-100 p-10 max-w-md w-full text-center shadow-sm">
-          <div className="w-20 h-20 rounded-full bg-emerald-50 flex items-center justify-center mx-auto mb-6">
-            <CheckCircle size={36} className="text-emerald-500" />
+          <div className="w-20 h-20 rounded-full bg-teal-50 flex items-center justify-center mx-auto mb-6">
+            <CheckCircle size={36} className="text-teal-500" />
           </div>
           <h1 className="text-2xl font-bold text-gray-900 mb-2">Payment Successful!</h1>
           <p className="text-gray-500 text-sm leading-relaxed mb-2">
@@ -326,13 +326,13 @@ export default function PaymentPage() {
   const selectedMethodInfo = paymentGroups.flatMap(g => g.methods).find(m => m.id === selectedPayment);
 
   return (
-    <div className="min-h-screen bg-[#F7F6F2] py-10 px-4 sm:px-6">
+    <div className="min-h-screen bg-white py-10 px-4 sm:px-6">
       <div className="max-w-5xl mx-auto">
 
         {/* Back nav */}
         <button
           onClick={goBack}
-          className="inline-flex items-center gap-1.5 text-gray-500 hover:text-gray-800 transition-colors mb-8 text-sm"
+          className="inline-flex items-center gap-1.5 text-teal-600 hover:text-teal-800 transition-colors mb-8 text-sm"
         >
           <ChevronLeft size={16} />
           Back to Shop
@@ -353,13 +353,13 @@ export default function PaymentPage() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
                 <div className="absolute bottom-4 left-4">
-                  <span className="bg-white/20 backdrop-blur-sm text-white text-xs font-medium px-3 py-1 rounded-full border border-white/30">
+                  <span className="bg-teal-50/90 backdrop-blur-sm text-teal-700 text-xs font-medium px-3 py-1 rounded-full border border-teal-100">
                     {product.category}
                   </span>
                 </div>
                 {product.inStock && (
                   <div className="absolute top-4 right-4">
-                    <span className="bg-emerald-500 text-white text-xs font-medium px-2.5 py-1 rounded-full">
+                    <span className="bg-teal-500 text-white text-xs font-medium px-2.5 py-1 rounded-full">
                       In Stock
                     </span>
                   </div>
@@ -398,12 +398,12 @@ export default function PaymentPage() {
                             onClick={() => setSelectedPayment(method.id)}
                             className={`relative flex flex-col items-start gap-2 p-3 rounded-xl border transition-all duration-150 text-left
                               ${isSelected
-                                ? 'border-indigo-400 bg-indigo-50 ring-1 ring-indigo-300'
+                                ? 'border-teal-400 bg-teal-50 ring-1 ring-teal-300'
                                 : 'border-gray-100 bg-gray-50 hover:border-gray-200 hover:bg-gray-100'
                               }`}
                           >
                             {isSelected && (
-                              <span className="absolute top-2 right-2 w-4 h-4 rounded-full bg-indigo-500 flex items-center justify-center">
+                              <span className="absolute top-2 right-2 w-4 h-4 rounded-full bg-teal-500 flex items-center justify-center">
                                 <svg width="8" height="6" viewBox="0 0 8 6" fill="none">
                                   <path d="M1 3L3 5L7 1" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                                 </svg>
@@ -411,7 +411,7 @@ export default function PaymentPage() {
                             )}
                             {method.logo}
                             <div>
-                              <p className={`text-xs font-semibold leading-tight ${isSelected ? 'text-indigo-800' : 'text-gray-700'}`}>
+                              <p className={`text-xs font-semibold leading-tight ${isSelected ? 'text-teal-800' : 'text-gray-700'}`}>
                                 {method.name}
                               </p>
                               {method.tag && (
@@ -484,20 +484,20 @@ export default function PaymentPage() {
 
             {/* Selected method + Pay CTA */}
             <div className="bg-white rounded-2xl border border-gray-100 p-5 shadow-sm">
-              <div className="flex items-center gap-3 mb-4 p-3 rounded-xl bg-indigo-50 border border-indigo-100">
+              <div className="flex items-center gap-3 mb-4 p-3 rounded-xl bg-teal-50 border border-teal-100">
                 <div className="flex-shrink-0">
                   {selectedMethodInfo?.logo}
                 </div>
                 <div>
-                  <p className="text-xs font-semibold text-indigo-800">{selectedMethodInfo?.name}</p>
-                  <p className="text-[11px] text-indigo-400">Selected payment method</p>
+                  <p className="text-xs font-semibold text-teal-800">{selectedMethodInfo?.name}</p>
+                  <p className="text-[11px] text-teal-400">Selected payment method</p>
                 </div>
               </div>
 
               <button
                 onClick={handlePayment}
                 disabled={isSubmitting || !product.inStock}
-                className="w-full bg-gray-900 text-white py-3.5 rounded-xl text-sm font-semibold hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center justify-center gap-2"
+                className="w-full bg-teal-600 text-white py-3.5 rounded-xl text-sm font-semibold hover:bg-teal-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center justify-center gap-2"
               >
                 {isSubmitting ? (
                   <>
