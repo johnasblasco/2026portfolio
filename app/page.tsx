@@ -8,6 +8,7 @@ import { AboutSection } from './components/AboutSection';
 import { PortfolioSection } from './components/PortfolioSection';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
+import BarPoll from './components/BarPoll';
 
 const services = [
     {
@@ -37,14 +38,14 @@ const projects = [
         image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop'
     },
     {
-        title: 'Mobile Banking App',
-        category: 'UI/UX Design',
-        image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&h=400&fit=crop'
+        title: 'B2B PADRELLOS CONSTRUCTION (Project Management, etc.)',
+        category: 'Custom Software',
+        image: '/p2.png'
     },
     {
-        title: 'Brand Identity Design',
-        category: 'Branding',
-        image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&h=400&fit=crop'
+        title: 'B2B JMJ SYSTEM (Parsing orders, inventory management, etc.)',
+        category: 'Custom Software',
+        image: '/p1.png'
     },
     {
         title: 'Dashboard Analytics',
@@ -79,6 +80,7 @@ export default function App() {
             <AboutSection experiences={experiences} />
             <PortfolioSection projects={projects} />
             <ContactSection contactInfo={contactInfo} />
+            <BarPoll />
             <Footer />
         </div>
     );

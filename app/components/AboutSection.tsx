@@ -36,7 +36,7 @@ export function AboutSection({ experiences }: AboutSectionProps) {
                         <div className="grid grid-cols-2 gap-4">
                             <div className="bg-gradient-to-br from-teal-500 to-teal-600 rounded-2xl p-8 text-white">
                                 <div className="text-4xl font-bold mb-2">95%</div>
-                                <div>Client Satisfaction</div>
+                                <div>B2B / Custom software for business process</div>
                             </div>
                             <div className="bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl p-8 text-white">
                                 <div className="text-4xl font-bold mb-2">24/7</div>

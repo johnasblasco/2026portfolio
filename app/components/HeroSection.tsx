@@ -64,6 +64,13 @@ function StatCounter({
 export function HeroSection() {
     const statsRef = useRef<HTMLDivElement | null>(null);
     const [start, setStart] = useState(false);
+    const heroImages = [
+        "/transparent-hero.png",
+        "/hero-2.png",
+        "/hero-3.png",
+    ];
+
+    const [currentSlide, setCurrentSlide] = useState(0);
 
     // trigger animation when stats enter view
     useEffect(() => {
@@ -82,6 +89,23 @@ export function HeroSection() {
 
         return () => observer.disconnect();
     }, []);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentSlide((prev) => (prev + 1) % heroImages.length);
+        }, 2000);
+
+        return () => clearInterval(interval);
+    }, []);
+
+    const handleDownloadCV = () => {
+        const link = document.createElement("a");
+        link.href = "/UPDATED.pdf";
+        link.download = "UPDATED.pdf";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
 
     return (
         <section
@@ -129,25 +153,37 @@ export function HeroSection() {
                                 <ChevronRight size={20} />
                             </button>
 
-                            <button className="cursor-pointer w-full sm:w-auto border-2 border-gray-900 text-gray-900 px-8 py-3 rounded-full hover:bg-gray-900 hover:text-white transition-colors">
+                            <button onClick={handleDownloadCV} className="cursor-pointer w-full sm:w-auto border-2 border-gray-900 text-gray-900 px-8 py-3 rounded-full hover:bg-gray-900 hover:text-white transition-colors">
                                 Download CV
                             </button>
                         </div>
                     </div>
 
                     {/* IMAGE */}
+                    {/* IMAGE SLIDESHOW */}
                     <div className="relative order-1 lg:order-2 max-w-md lg:max-w-lg mx-auto w-full">
                         <div className="absolute -top-6 -left-6 lg:-top-10 lg:-left-10 w-24 h-24 lg:w-40 lg:h-40 bg-orange-400 rounded-full opacity-20"></div>
                         <div className="absolute -bottom-6 -right-6 lg:-bottom-10 lg:-right-10 w-20 h-20 lg:w-32 lg:h-32 bg-teal-400 rounded-full opacity-20"></div>
 
-                        <div className="relative bg-linear-to-br from-orange-100 to-orange-50 rounded-3xl p-4 sm:p-6 lg:p-8">
-                            <ImageWithFallback
-                                src="/transparent-hero.png"
-                                alt="Profile"
-                                className="rounded-2xl w-full max-h-137.5 object-cover"
-                            />
+                        <div className="relative bg-linear-to-br from-orange-100 to-orange-50 rounded-3xl p-4 sm:p-6 lg:p-8 overflow-hidden">
+                            {[
+                                "/transparent-hero.png",
+                                "/hero-2.png",
+                                "/hero-3.png",
+                            ].map((image, index) => (
+                                <ImageWithFallback
+                                    key={image}
+                                    src={image}
+                                    alt="Profile"
+                                    className={`rounded-2xl w-full max-h-137.5 object-cover transition-opacity duration-700 ${index === currentSlide
+                                            ? "opacity-100"
+                                            : "opacity-0 absolute inset-4 sm:inset-6 lg:inset-8 w-[calc(100%-2rem)] sm:w-[calc(100%-3rem)] lg:w-[calc(100%-4rem)]"
+                                        }`}
+                                />
+                            ))}
                         </div>
                     </div>
+
                 </div>
 
                 {/* STATS */}

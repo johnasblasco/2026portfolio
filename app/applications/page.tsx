@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
+import { ImageWithFallback } from '../components/image/ImageWithFallback';
 import { ChevronRight, BookOpen, Users, Calendar, LayoutDashboard, FileText, GraduationCap, ArrowLeft } from 'lucide-react';
 
 // Fade in animation hook
@@ -66,13 +67,13 @@ function useFadeIn(index: number, delayStep = 100) {
 
 const myApps = [
   {
-    name: 'School Management System',
-    description: 'Complete system for managing students, teachers, classes, and grades',
+    name: 'Certificate Generator',
+    description: 'Demo Certificate Generator for educational purposes',
     icon: GraduationCap,
     color: 'bg-teal-500',
-    href: '/projects/school-management',
+    href: 'https://free-certificate-editor.vercel.app/',
     tag: 'Education',
-    image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400&h=250&fit=crop'
+    image: '/project1.png'
   },
   {
     name: 'Library System',
@@ -221,7 +222,7 @@ function AppCard({ app, index }: { app: typeof myApps[0]; index: number }) {
       >
         {/* Hover Image - appears behind content when hovered */}
         <div className="absolute inset-0 rounded-2xl overflow-hidden z-0">
-          <img
+          <ImageWithFallback
             src={app.image}
             alt={app.name}
             className="w-full h-full object-cover scale-110 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
@@ -278,11 +279,10 @@ function HeroSection() {
         My Applications
       </div>
       <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-gray-900 mb-4">
-        Applications I've Built
+        Application Manager
       </h1>
       <p className="text-gray-600 text-lg max-w-3xl mx-auto">
-        A collection of web applications I've developed for various clients and projects,
-        showcasing my full-stack development capabilities.
+        A free collection of web applications I've developed for various clients and projects,
       </p>
 
       {/* Stats with animation */}

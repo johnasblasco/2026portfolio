@@ -244,7 +244,7 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
                         type="button"
                         onClick={handleBuy}
                         aria-label={`Buy ${product.name}`}
-                        className="w-8 h-8 bg-teal-600 rounded-full flex items-center justify-center shadow-sm hover:bg-teal-700 transition-colors"
+                        className="w-8 h-8 bg-black rounded-full flex items-center justify-center shadow-sm hover:bg-gray-700 transition-colors"
                     >
                         <ArrowUpRight size={14} className="text-white" />
                     </button>
@@ -255,11 +255,11 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
             <div className="p-5">
                 {/* Icon + name */}
                 <div className="flex items-start gap-3 mb-3">
-                    <div className="w-9 h-9 rounded-xl bg-teal-50 flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:bg-teal-100 transition-colors">
-                        <Icon size={17} className="text-teal-600" />
+                    <div className="w-9 h-9 rounded-xl bg-gray-50 flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:bg-gray-100 transition-colors">
+                        <Icon size={17} className="text-gray-900" />
                     </div>
                     <div className="min-w-0">
-                        <h3 className="text-sm font-bold text-gray-900 leading-snug group-hover:text-teal-700 transition-colors truncate">
+                        <h3 className="text-sm font-bold text-gray-900 leading-snug group-hover:text-gray-900 transition-colors truncate">
                             {product.name}
                         </h3>
                         <p className="text-[11px] text-gray-400 mt-0.5">{product.tagline}</p>
@@ -284,7 +284,7 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
                 <button
                     type="button"
                     onClick={handleBuy}
-                    className="w-full flex items-center justify-center gap-1.5 bg-teal-600 hover:bg-teal-700 text-white text-xs font-semibold py-2.5 rounded-xl transition-colors"
+                    className="w-full flex items-center justify-center gap-1.5 bg-gray-900 hover:bg-gray-800 text-white text-xs font-semibold py-2.5 rounded-xl transition-colors"
                 >
                     <ShoppingCart size={13} />
                     Buy Now
@@ -304,7 +304,7 @@ function HeroSection() {
             className={`mb-14 transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
         >
 
-            <div className="flex items-center gap-2 bg-teal-100 text-teal-600 px-4 py-2 rounded-full mb-4">
+            <div className="flex items-center gap-2 bg-orange-100 text-orange-600 px-4 py-2 rounded-full mb-4">
                 <Zap size={12} />
                 Software Solutions
             </div>
@@ -363,8 +363,8 @@ function CategoryFilter({ selected, onSelect }: { selected: string; onSelect: (c
                     onClick={() => onSelect(cat)}
                     className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-200 border
             ${selected === cat
-                            ? 'bg-teal-600 text-white border-teal-600'
-                            : 'bg-white text-gray-600 border-gray-200 hover:border-teal-300 hover:bg-teal-50'
+                            ? 'bg-gray-900 text-white border-black'
+                            : 'bg-white text-gray-900 border-gray-200 hover:border-black hover:bg-gray-50'
                         }`}
                 >
                     {cat}
@@ -415,7 +415,7 @@ export default function ShopPage() {
         });
 
     return (
-        <div className="min-h-screen bg-white py-14 pb-20 px-4 sm:px-6">
+        <div className="min-h-screen bg-white py-14 px-4 sm:px-6">
             <div className="max-w-6xl mx-auto">
 
                 {/* Hero */}
@@ -454,7 +454,7 @@ export default function ShopPage() {
                 )}
 
                 {/* Footer note */}
-                <p className="text-center text-xs text-gray-400 mt-14">
+                <p className="pb-40 text-center text-xs text-gray-900 mt-14">
                     All systems include free setup assistance · Local support · Lifetime license
                 </p>
             </div>

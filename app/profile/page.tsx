@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef, useCallback } from "react";
-import { ChevronRight, Download, User, Star, Briefcase, Book, Code, Database, Server } from 'lucide-react';
+import { ChevronRight, Download, User, Star, Briefcase, Book, Palette, Code, Database, Server, Braces } from 'lucide-react';
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 
@@ -101,40 +101,40 @@ const SectionBody = ({ children, className = "" }: { children: React.ReactNode; 
 // ─── Static data ────────────────────────────────────────────────────────────
 
 const SKILLS = [
-    { label: "React", icon: Code, accent: true },
-    { label: "TypeScript", icon: Code, accent: true },
+    { label: "React / React Native", icon: Star, accent: true },
+    { label: "TypeScript", icon: Star, accent: true },
     { label: "Node.js", icon: Server, accent: true },
-    { label: "Next.js", icon: Code, accent: false },
-    { label: "GraphQL", icon: Database, accent: false },
-    { label: "PostgreSQL", icon: Database, accent: false },
+    { label: "Next.js", icon: Code, accent: true },
+    { label: "Tailwind", icon: Palette, accent: true },
+    { label: "API", icon: Braces, accent: true },
+    { label: "PostgreSQL", icon: Database, accent: true },
     { label: "AWS", icon: Server, accent: false },
     { label: "Docker", icon: Server, accent: false },
-    { label: "Figma", icon: Star, accent: false },
+    { label: "Figma", icon: Palette, accent: false },
     { label: "Python", icon: Code, accent: false },
     { label: "Redis", icon: Database, accent: false },
-    { label: "Tailwind", icon: Code, accent: false },
 ];
 
 const EXPERIENCE = [
     {
-        role: "Senior Engineer",
-        company: "Vercel",
-        period: "2022 - Present",
-        desc: "Led front-end infrastructure for the dashboard, improved build performance by 40%, mentored 4 junior engineers.",
+        role: "Fullstack Developer / Senior role",
+        company: "c8nnect IT Solutions",
+        period: "2025 - 2026",
+        desc: "Led projects and infrastructure, improved build performance by 40%, mentored 4 junior engineers and interns.",
         dotColor: "bg-teal-500",
     },
     {
-        role: "Full-Stack Dev",
-        company: "Linear",
-        period: "2020 - 2022",
-        desc: "Built core issue-tracking features using Electron and React. Owned the notification system end-to-end.",
+        role: "Frontend Dev",
+        company: "SNL virtual Partner",
+        period: "2025 - 2025",
+        desc: "Built many generic and b2b applications using Typescript and React.",
         dotColor: "bg-gray-400",
     },
     {
-        role: "Frontend Engineer",
-        company: "Stripe",
-        period: "2018 - 2020",
-        desc: "Contributed to Stripe's design system components and helped migrate legacy jQuery UI to React.",
+        role: "Backend Engineer",
+        company: "Simplevia technologies inc.",
+        period: "2024 - 2025",
+        desc: "Contributed to Accounting infomation system and helped migrate legacy codes",
         dotColor: "bg-gray-300",
     },
 ];
@@ -279,14 +279,16 @@ export default function Profile() {
                             from pixel-perfect interfaces to scalable backend systems.
                         </p>
                         <div className="flex gap-4">
-                            <button className="bg-gray-900 text-white px-8 py-3 rounded-full hover:bg-gray-800 transition-colors flex items-center gap-2">
+                            <button className="cursor-pointer bg-gray-900 text-white px-8 py-3 rounded-full hover:bg-gray-800 transition-colors flex items-center gap-2">
                                 View my work
                                 <ChevronRight size={18} />
                             </button>
-                            <button className="inline-flex items-center gap-2 bg-transparent text-gray-700 border border-gray-300 rounded-full px-6 py-3 hover:bg-gray-50 hover:border-gray-400 transition-colors">
-                                <Download size={18} />
-                                Resume
-                            </button>
+                            <a href="/UPDATED.pdf" target="_blank" rel="noopener noreferrer">
+                                <button className="cursor-pointer inline-flex items-center gap-2 bg-transparent text-gray-700 border border-gray-300 rounded-full px-6 py-3 hover:bg-gray-50 hover:border-gray-400 transition-colors">
+                                    <Download size={18} />
+                                    Resume
+                                </button>
+                            </a>
                         </div>
                     </div>
 
@@ -296,13 +298,13 @@ export default function Profile() {
                         <SectionTitle>Building with craft & purpose</SectionTitle>
                         <Divider />
                         <SectionBody>
-                            I'm a full-stack developer with 6 years of experience turning ambitious ideas
+                            I'm a full-stack developer with 6 years of coding experience and 1 year of work experience, turning ambitious ideas
                             into polished products. I care deeply about the intersection of engineering
                             and design - believing the best software is invisible, intuitive, and
                             delightful to use.
                         </SectionBody>
                         <SectionBody className="mt-4">
-                            Currently based in San Francisco, I work with early-stage startups and
+                            Currently based in Bulacan, I work with early-stage startups and
                             established teams who value quality and speed in equal measure.
                         </SectionBody>
                     </AnimatedCard>
