@@ -65,9 +65,13 @@ export function HeroSection() {
     const statsRef = useRef<HTMLDivElement | null>(null);
     const [start, setStart] = useState(false);
     const heroImages = [
-        "/transparent-hero.png",
-        "/hero-2.png",
-        "/hero-3.png",
+        "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+        "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg",
+        "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
+        "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
+        "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
+        "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg",
+        "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
     ];
 
     const [currentSlide, setCurrentSlide] = useState(0);
@@ -110,7 +114,7 @@ export function HeroSection() {
     return (
         <section
             id="home"
-            className="relative pt-8 pb-12 lg:pb-16 px-4 sm:px-6 overflow-hidden"
+            className="relative pt-12 pb-12 lg:pb-16 px-4 sm:px-6 overflow-hidden"
         >
             <div className="max-w-7xl mx-auto">
                 <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
@@ -165,19 +169,15 @@ export function HeroSection() {
                         <div className="absolute -top-6 -left-6 lg:-top-10 lg:-left-10 w-24 h-24 lg:w-40 lg:h-40 bg-orange-400 rounded-full opacity-20"></div>
                         <div className="absolute -bottom-6 -right-6 lg:-bottom-10 lg:-right-10 w-20 h-20 lg:w-32 lg:h-32 bg-teal-400 rounded-full opacity-20"></div>
 
-                        <div className="relative bg-linear-to-br from-orange-100 to-orange-50 rounded-3xl p-4 sm:p-6 lg:p-8 overflow-hidden">
-                            {[
-                                "/transparent-hero.png",
-                                "/hero-2.png",
-                                "/hero-3.png",
-                            ].map((image, index) => (
+                        <div className="relative rounded-3xl p-4 sm:p-6 lg:p-8 overflow-hidden">
+                            {heroImages.map((image, index) => (
                                 <ImageWithFallback
                                     key={image}
                                     src={image}
                                     alt="Profile"
-                                    className={`rounded-2xl w-full max-h-137.5 object-cover transition-opacity duration-700 ${index === currentSlide
-                                            ? "opacity-100"
-                                            : "opacity-0 absolute inset-4 sm:inset-6 lg:inset-8 w-[calc(100%-2rem)] sm:w-[calc(100%-3rem)] lg:w-[calc(100%-4rem)]"
+                                    className={`rounded-2xl w-full max-h-full object-cover transition-opacity duration-700 ${index === currentSlide
+                                        ? "opacity-100"
+                                        : "opacity-0 absolute inset-4 sm:inset-6 lg:inset-8 w-[calc(100%-2rem)] sm:w-[calc(100%-3rem)] lg:w-[calc(100%-4rem)]"
                                         }`}
                                 />
                             ))}
