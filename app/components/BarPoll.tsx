@@ -9,12 +9,12 @@ type VoteOption = {
 
 const initialVotes: VoteOption[] = [
     {
-        title: "Tabs",
+        title: "Looks Good!",
         votes: 1,
         color: "bg-indigo-500",
     },
     {
-        title: "Spaces",
+        title: "hmm, Decent.",
         votes: 2,
         color: "bg-fuchsia-500",
     },

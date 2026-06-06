@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef, useCallback } from "react";
-import { ChevronRight, Download, User, Star, Briefcase, Book, Palette, Code, Database, Server, Braces } from 'lucide-react';
+import { ChevronRight, Download, User, Star, Briefcase, Book, Palette, Code, Database, Server, Braces, Zap } from 'lucide-react';
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 
@@ -59,10 +59,10 @@ const AnimatedCard = ({ children, delay = 0 }: AnimatedCardProps) => {
             ref={ref}
             style={{ transitionDelay: `${delay}ms`, perspective: 600 }}
             className={[
-                "bg-white border border-gray-200 rounded-2xl p-8 mb-8",
+                "bg-white border border-gray-100 rounded-3xl p-8 mb-8",
                 "shadow-sm transition-all duration-700 ease-[cubic-bezier(.22,1,.36,1)]",
                 "origin-top",
-                "hover:-translate-y-0.5 hover:shadow-md hover:border-gray-300",
+                "hover:-translate-y-1 hover:shadow-xl hover:border-gray-200",
                 inView
                     ? "opacity-100 translate-y-0 rotate-x-0"
                     : "opacity-0 translate-y-10 [transform:translateY(40px)_rotateX(8deg)]",
@@ -76,24 +76,24 @@ const AnimatedCard = ({ children, delay = 0 }: AnimatedCardProps) => {
 // ─── Small reusable pieces ────────────────────────────────────────────────────
 
 const SectionLabel = ({ icon, text }: { icon: React.ReactNode; text: string }) => (
-    <div className="inline-flex items-center gap-2 text-sm font-medium text-gray-600 bg-gray-100 px-4 py-2 rounded-full mb-4">
+    <div className="inline-flex items-center gap-2 text-sm font-medium text-gray-600 bg-gray-50 px-5 py-2.5 rounded-full mb-6 border border-gray-100">
         {icon}
         {text}
     </div>
 );
 
 const SectionTitle = ({ children }: { children: React.ReactNode }) => (
-    <h2 className="text-2xl font-bold text-gray-900 mb-4">
+    <h2 className="text-3xl font-bold text-gray-900 mb-4">
         {children}
     </h2>
 );
 
 const Divider = () => (
-    <div className="w-16 h-1 bg-teal-500 rounded-full mb-6" />
+    <div className="w-16 h-1 bg-gradient-to-r from-teal-400 to-orange-400 rounded-full mb-6" />
 );
 
 const SectionBody = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => (
-    <p className={`text-gray-600 leading-relaxed ${className}`}>
+    <p className={`text-gray-500 leading-relaxed text-base ${className}`}>
         {children}
     </p>
 );
@@ -128,14 +128,14 @@ const EXPERIENCE = [
         company: "SNL virtual Partner",
         period: "2025 - 2025",
         desc: "Built many generic and b2b applications using Typescript and React.",
-        dotColor: "bg-gray-400",
+        dotColor: "bg-orange-500",
     },
     {
         role: "Backend Engineer",
         company: "Simplevia technologies inc.",
         period: "2024 - 2025",
         desc: "Contributed to Accounting infomation system and helped migrate legacy codes",
-        dotColor: "bg-gray-300",
+        dotColor: "bg-gray-400",
     },
 ];
 
@@ -162,20 +162,20 @@ const ProfileImage = ({ scrollProgress }: { scrollProgress: number }) => {
     return (
         <div
             style={portraitStyle}
-            className="w-full h-full rounded-2xl overflow-hidden [transform-style:preserve-3d] will-change-transform transition-shadow duration-300"
+            className="w-full h-full rounded-3xl overflow-hidden [transform-style:preserve-3d] will-change-transform transition-shadow duration-300"
         >
-            <div className="w-full h-full rounded-2xl bg-gradient-to-br from-orange-100 to-orange-50 overflow-hidden relative">
+            <div className="w-full h-full rounded-3xl bg-gradient-to-br from-orange-100 to-orange-50 overflow-hidden relative">
                 <img
                     src="/me.jpeg"
                     alt="Johnas - Profile"
                     className="w-full h-full object-cover"
                 />
                 {/* Name badge */}
-                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white/90 backdrop-blur-sm rounded-xl px-6 py-3 whitespace-nowrap shadow-sm border border-white/80">
-                    <h3 className="text-lg font-bold text-gray-900 tracking-tight m-0">
+                <div className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-white/90 backdrop-blur-sm rounded-2xl px-8 py-4 whitespace-nowrap shadow-lg border border-white/80">
+                    <h3 className="text-xl font-bold text-gray-900 tracking-tight m-0">
                         Johnas
                     </h3>
-                    <p className="flex items-center gap-2 text-sm text-teal-600 font-medium mt-1">
+                    <p className="flex items-center gap-2 text-sm text-teal-600 font-medium mt-2">
                         <span className="inline-block w-2 h-2 rounded-full bg-teal-500 animate-pulse shrink-0" />
                         Available for work
                     </p>
@@ -225,7 +225,7 @@ export default function Profile() {
     const scrollHintOpacity = Math.max(0, (1 - scrollProgress * 5) * 0.45);
 
     return (
-        <div ref={containerRef} className="bg-white min-h-screen text-gray-900">
+        <div ref={containerRef} className="bg-gray-50 min-h-screen text-gray-900">
             <div className="flex max-w-7xl mx-auto px-4 sm:px-6 pb-20">
 
                 {/* LEFT COLUMN - Portrait */}
@@ -266,15 +266,16 @@ export default function Profile() {
                             heroInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5",
                         ].join(" ")}
                     >
-                        <div className="inline-block bg-orange-100 text-orange-600 px-4 py-2 rounded-full mb-4 text-sm font-medium">
+                        <div className="inline-flex items-center gap-2 bg-orange-100 text-orange-600 px-5 py-2.5 rounded-full mb-6 text-sm font-medium border border-orange-200">
+                            <Zap size={14} />
                             Full-Stack Developer
                         </div>
-                        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-gray-900 mb-4">
+                        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-gray-900 mb-6">
                             Crafting digital
                             <br />
                             experiences with <em className="italic text-teal-600">intent</em>
                         </h1>
-                        <p className="text-gray-600 text-base lg:text-lg mb-6 lg:mb-8 max-w-xl">
+                        <p className="text-gray-500 text-base lg:text-lg mb-8 lg:mb-10 max-w-xl">
                             I build products that are fast, beautiful, and thoughtfully engineered -
                             from pixel-perfect interfaces to scalable backend systems.
                         </p>
@@ -284,7 +285,7 @@ export default function Profile() {
                                 <ChevronRight size={18} />
                             </button>
                             <a href="/UPDATED.pdf" target="_blank" rel="noopener noreferrer">
-                                <button className="cursor-pointer inline-flex items-center gap-2 bg-transparent text-gray-700 border border-gray-300 rounded-full px-6 py-3 hover:bg-gray-50 hover:border-gray-400 transition-colors">
+                                <button className="cursor-pointer inline-flex items-center gap-2 bg-white text-gray-700 border border-gray-200 rounded-full px-6 py-3 hover:bg-gray-50 hover:border-gray-300 transition-colors">
                                     <Download size={18} />
                                     Resume
                                 </button>
@@ -325,11 +326,11 @@ export default function Profile() {
                                     <div
                                         key={skill.label}
                                         className={[
-                                            "rounded-xl p-4 text-center transition-all duration-200 cursor-default",
-                                            "border hover:-translate-y-0.5 hover:shadow-md",
+                                            "rounded-2xl p-5 text-center transition-all duration-200 cursor-default",
+                                            "border hover:-translate-y-1 hover:shadow-lg",
                                             skill.accent
                                                 ? "bg-orange-50 border-orange-200 text-orange-700"
-                                                : "bg-gray-50 border-gray-200 text-gray-700",
+                                                : "bg-white border-gray-100 text-gray-700",
                                         ].join(" ")}
                                     >
                                         <IconComponent className="w-6 h-6 mx-auto mb-2" />
@@ -352,7 +353,7 @@ export default function Profile() {
                                     <div className="flex flex-col items-center">
                                         <div className={`w-3 h-3 rounded-full shrink-0 mt-1 ${exp.dotColor}`} />
                                         {i < EXPERIENCE.length - 1 && (
-                                            <div className="w-px flex-1 bg-gray-200 mt-1 min-h-8" />
+                                            <div className="w-px flex-1 bg-gray-100 mt-1 min-h-8" />
                                         )}
                                     </div>
                                     {/* Text */}
@@ -360,8 +361,8 @@ export default function Profile() {
                                         <h4 className="text-lg font-semibold text-gray-900 mb-1">
                                             {exp.role} <span className="text-teal-600 font-medium">- {exp.company}</span>
                                         </h4>
-                                        <p className="text-sm text-gray-500 mb-1">{exp.period}</p>
-                                        <span className="text-sm text-gray-600 leading-relaxed">{exp.desc}</span>
+                                        <p className="text-sm text-gray-400 mb-1">{exp.period}</p>
+                                        <span className="text-sm text-gray-500 leading-relaxed">{exp.desc}</span>
                                     </div>
                                 </div>
                             ))}
@@ -377,13 +378,13 @@ export default function Profile() {
                             {PROJECTS.map((proj, i) => (
                                 <div
                                     key={proj.title}
-                                    className="relative bg-gray-50 border border-gray-200 rounded-xl p-6 cursor-pointer overflow-hidden transition-all duration-200 hover:border-teal-300 hover:-translate-y-0.5 hover:shadow-md group"
+                                    className="relative bg-white border border-gray-100 rounded-2xl p-6 cursor-pointer overflow-hidden transition-all duration-200 hover:border-teal-300 hover:-translate-y-1 hover:shadow-xl group"
                                 >
-                                    <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center mb-4 text-2xl">
+                                    <div className="w-12 h-12 bg-orange-50 rounded-2xl flex items-center justify-center mb-4 text-2xl">
                                         {proj.icon}
                                     </div>
                                     <p className="text-lg font-semibold text-gray-900 mb-2">{proj.title}</p>
-                                    <p className="text-sm text-gray-600">{proj.desc}</p>
+                                    <p className="text-sm text-gray-500">{proj.desc}</p>
                                     {/* Arrow */}
                                     <div className="absolute top-6 right-6 text-teal-500 opacity-0 -translate-x-2 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0">
                                         <ChevronRight size={20} />

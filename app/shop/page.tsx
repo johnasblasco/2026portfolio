@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, type KeyboardEvent, type MouseEvent } from 'react';
 import { useRouter } from 'next/navigation';
-import { ShoppingCart, ShoppingBag, Heart, Search, Star, Zap, BarChart3, Users, Shield, Package, ArrowUpRight } from 'lucide-react';
+import { ShoppingCart, ShoppingBag, Heart, Search, Star, Zap, BarChart3, Users, Shield, Package, ArrowUpRight, ChevronRight } from 'lucide-react';
 
 // ─── Fade-in hook ────────────────────────────────────────────────────────────
 function useFadeIn(index: number, delayStep = 80) {
@@ -53,6 +53,7 @@ interface Product {
     inStock: boolean;
     badge?: string;
     icon: React.ElementType;
+    color: string;
 }
 
 // ─── Software System Products (prices in PHP) ────────────────────────────────
@@ -70,6 +71,7 @@ const products: Product[] = [
         inStock: true,
         badge: 'Bestseller',
         icon: ShoppingCart,
+        color: 'from-teal-400 to-teal-600',
     },
     {
         id: 2,
@@ -83,6 +85,7 @@ const products: Product[] = [
         reviews: 94,
         inStock: true,
         icon: Users,
+        color: 'from-orange-400 to-orange-600',
     },
     {
         id: 3,
@@ -96,6 +99,7 @@ const products: Product[] = [
         reviews: 76,
         inStock: true,
         icon: Package,
+        color: 'from-red-400 to-red-600',
     },
     {
         id: 4,
@@ -110,6 +114,7 @@ const products: Product[] = [
         inStock: true,
         badge: 'Popular',
         icon: BarChart3,
+        color: 'from-indigo-400 to-indigo-600',
     },
     {
         id: 5,
@@ -123,6 +128,7 @@ const products: Product[] = [
         reviews: 88,
         inStock: true,
         icon: Zap,
+        color: 'from-amber-400 to-amber-600',
     },
     {
         id: 6,
@@ -137,6 +143,7 @@ const products: Product[] = [
         inStock: true,
         badge: 'Enterprise',
         icon: Shield,
+        color: 'from-gray-400 to-gray-600',
     },
 ];
 
@@ -202,41 +209,40 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
             onKeyDown={handleKeyDown}
             role="button"
             tabIndex={0}
-            className={`group bg-white rounded-2xl border border-gray-100 overflow-hidden cursor-pointer
-        transition-all duration-500 hover:-translate-y-1.5 hover:shadow-lg hover:shadow-gray-100 hover:border-gray-200
-        focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-offset-2
+            className={`group bg-white rounded-3xl border border-gray-100 overflow-hidden cursor-pointer
+        transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-gray-100 hover:border-gray-200
+        focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2
         ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
             style={{ transitionDelay: isVisible ? '0ms' : `${index * 80}ms` }}
         >
-            {/* Image */}
-            <div className="relative h-44 overflow-hidden bg-gray-50">
+            {/* Image with gradient border */}
+            <div className="relative h-48 overflow-hidden">
+                <div className={`absolute inset-0 bg-gradient-to-br ${product.color} opacity-10`} />
                 <img
                     src={product.image}
                     alt={product.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="relative z-10 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                {/* Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-gray-900/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
                 {/* Category pill */}
-                <span className="absolute top-3 left-3 bg-teal-50/90 backdrop-blur-sm text-teal-700 text-[10px] font-semibold px-2.5 py-1 rounded-full border border-teal-100">
+                <span className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm text-gray-700 text-[10px] font-semibold px-3 py-1.5 rounded-full border border-gray-200">
                     {product.category}
                 </span>
 
                 {/* Badge */}
                 {product.badge && (
-                    <span className={`absolute top-3 right-3 text-[10px] font-semibold px-2.5 py-1 rounded-full border ${badgeColors[product.badge]}`}>
+                    <span className={`absolute top-4 right-4 text-[10px] font-semibold px-3 py-1.5 rounded-full border ${badgeColors[product.badge]}`}>
                         {product.badge}
                     </span>
                 )}
 
                 {/* Hover actions */}
-                <div className="absolute bottom-3 right-3 flex gap-1.5 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-1 group-hover:translate-y-0">
+                <div className="absolute bottom-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
                     <button
                         type="button"
                         onClick={handleWishlist}
                         aria-label={`${wished ? 'Remove from' : 'Add to'} wishlist`}
-                        className="w-8 h-8 bg-white/95 rounded-full flex items-center justify-center shadow-sm hover:bg-white transition-colors"
+                        className="w-9 h-9 bg-white/95 rounded-full flex items-center justify-center shadow-sm hover:bg-white transition-colors"
                     >
                         <Heart size={14} className={wished ? 'text-red-500 fill-red-500' : 'text-gray-500'} />
                     </button>
@@ -244,7 +250,7 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
                         type="button"
                         onClick={handleBuy}
                         aria-label={`Buy ${product.name}`}
-                        className="w-8 h-8 bg-black rounded-full flex items-center justify-center shadow-sm hover:bg-gray-700 transition-colors"
+                        className="w-9 h-9 bg-gray-900 rounded-full flex items-center justify-center shadow-sm hover:bg-gray-700 transition-colors"
                     >
                         <ArrowUpRight size={14} className="text-white" />
                     </button>
@@ -252,41 +258,41 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
             </div>
 
             {/* Content */}
-            <div className="p-5">
+            <div className="p-6">
                 {/* Icon + name */}
-                <div className="flex items-start gap-3 mb-3">
-                    <div className="w-9 h-9 rounded-xl bg-gray-50 flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:bg-gray-100 transition-colors">
-                        <Icon size={17} className="text-gray-900" />
+                <div className="flex items-start gap-3 mb-4">
+                    <div className={`w-10 h-10 rounded-2xl bg-gradient-to-br ${product.color} flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:scale-105 transition-transform`}>
+                        <Icon size={18} className="text-white" />
                     </div>
                     <div className="min-w-0">
-                        <h3 className="text-sm font-bold text-gray-900 leading-snug group-hover:text-gray-900 transition-colors truncate">
+                        <h3 className="text-base font-bold text-gray-900 leading-snug group-hover:text-gray-900 transition-colors truncate">
                             {product.name}
                         </h3>
-                        <p className="text-[11px] text-gray-400 mt-0.5">{product.tagline}</p>
+                        <p className="text-[11px] text-gray-400 mt-1">{product.tagline}</p>
                     </div>
                 </div>
 
                 {/* Description */}
-                <p className="text-xs text-gray-500 leading-relaxed mb-4 line-clamp-2">{product.description}</p>
+                <p className="text-xs text-gray-500 leading-relaxed mb-5 line-clamp-2">{product.description}</p>
 
                 {/* Price + rating */}
-                <div className="flex items-end justify-between">
+                <div className="flex items-end justify-between mb-5">
                     <div>
-                        <p className="text-lg font-bold text-gray-900">{formatPHP(product.price)}</p>
+                        <p className="text-xl font-bold text-gray-900">{formatPHP(product.price)}</p>
                         <p className="text-[10px] text-gray-400">one-time license</p>
                     </div>
                     <StarRating rating={product.rating} reviews={product.reviews} />
                 </div>
             </div>
 
-            {/* Buy strip */}
-            <div className="px-5 pb-4">
+            {/* Buy button */}
+            <div className="px-6 pb-6">
                 <button
                     type="button"
                     onClick={handleBuy}
-                    className="w-full flex items-center justify-center gap-1.5 bg-gray-900 hover:bg-gray-800 text-white text-xs font-semibold py-2.5 rounded-xl transition-colors"
+                    className="w-full flex items-center justify-center gap-2 bg-gray-900 hover:bg-gray-800 text-white text-sm font-semibold py-3 rounded-2xl transition-colors"
                 >
-                    <ShoppingCart size={13} />
+                    <ShoppingCart size={14} />
                     Buy Now
                 </button>
             </div>
@@ -301,33 +307,40 @@ function HeroSection() {
     return (
         <div
             ref={ref}
-            className={`mb-14 transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+            className={`mb-16 transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
         >
-
-            <div className="flex items-center gap-2 bg-orange-100 text-orange-600 px-4 py-2 rounded-full mb-4">
+            <div className="flex items-center gap-2 bg-orange-100 text-orange-600 px-4 py-2 rounded-full mb-6 w-fit">
                 <Zap size={12} />
-                Software Solutions
+                <span className="text-xs font-semibold">Software Solutions</span>
             </div>
-            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
-                <div>
-                    <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 leading-tight mb-2">
-                        Business Systems<br />
-                        <span className="text-gray-400 font-normal">Built for the PH Market</span>
+
+            <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
+                <div className="max-w-2xl">
+                    <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-4">
+                        Business Systems
+                        <br />
+                        <span className="text-teal-400 font-normal">Built for the PH Market</span>
                     </h1>
-                    <p className="text-gray-500 text-base max-w-xl">
+                    <p className="text-gray-500 text-base lg:text-lg max-w-xl">
                         Ready-to-deploy software for retail, HR, finance, and more — BIR compliant, locally supported.
                     </p>
+
+                    <button className="mt-8 cursor-pointer bg-black text-white px-8 py-3 rounded-full hover:bg-gray-800 transition-colors flex items-center justify-center gap-2 w-fit">
+                        Explore Systems
+                        <ChevronRight size={18} />
+                    </button>
                 </div>
+
                 {/* Stats */}
-                <div className="flex gap-6 md:gap-8 flex-shrink-0">
+                <div className="flex gap-6 lg:gap-8 flex-shrink-0">
                     {[
                         { value: '500+', label: 'Businesses' },
                         { value: '6', label: 'Systems' },
                         { value: '4.8★', label: 'Avg Rating' },
                     ].map((s) => (
-                        <div key={s.label} className="text-center">
+                        <div key={s.label} className="text-center p-4 bg-gray-50 rounded-2xl border border-gray-100">
                             <p className="text-xl font-bold text-gray-900">{s.value}</p>
-                            <p className="text-xs text-gray-400">{s.label}</p>
+                            <p className="text-xs text-gray-400 mt-1">{s.label}</p>
                         </div>
                     ))}
                 </div>
@@ -340,14 +353,14 @@ function HeroSection() {
 function SearchBar({ value, onChange }: { value: string; onChange: (v: string) => void }) {
     return (
         <div className="relative">
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
             <input
                 type="text"
                 placeholder="Search systems..."
                 value={value}
                 onChange={(e) => onChange(e.target.value)}
-                className="w-full sm:w-72 pl-10 pr-4 py-2.5 bg-white border border-gray-200 rounded-xl text-sm text-gray-700 placeholder-gray-400
-          focus:outline-none focus:ring-2 focus:ring-teal-300 focus:border-teal-300 transition-all shadow-sm"
+                className="w-full sm:w-80 pl-12 pr-4 py-3.5 bg-white border border-gray-200 rounded-2xl text-sm text-gray-700 placeholder-gray-400
+          focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-gray-300 transition-all shadow-sm"
             />
         </div>
     );
@@ -361,10 +374,10 @@ function CategoryFilter({ selected, onSelect }: { selected: string; onSelect: (c
                 <button
                     key={cat}
                     onClick={() => onSelect(cat)}
-                    className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-200 border
+                    className={`px-5 py-2.5 rounded-2xl text-xs font-semibold transition-all duration-200 border
             ${selected === cat
-                            ? 'bg-gray-900 text-white border-black'
-                            : 'bg-white text-gray-900 border-gray-200 hover:border-black hover:bg-gray-50'
+                            ? 'bg-gray-900 text-white border-gray-900'
+                            : 'bg-white text-gray-700 border-gray-200 hover:border-gray-400 hover:bg-gray-50'
                         }`}
                 >
                     {cat}
@@ -382,7 +395,7 @@ function SortSelect({ value, onChange }: { value: SortKey; onChange: (v: SortKey
         <select
             value={value}
             onChange={(e) => onChange(e.target.value as SortKey)}
-            className="text-xs font-medium text-gray-600 bg-white border border-gray-200 rounded-xl px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-teal-300 shadow-sm cursor-pointer"
+            className="text-xs font-medium text-gray-600 bg-white border border-gray-200 rounded-2xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-gray-300 shadow-sm cursor-pointer"
         >
             <option value="default">Sort: Default</option>
             <option value="price-asc">Price: Low to High</option>
@@ -415,8 +428,8 @@ export default function ShopPage() {
         });
 
     return (
-        <div className="min-h-screen bg-white py-14 px-4 sm:px-6">
-            <div className="max-w-6xl mx-auto">
+        <div className="min-h-screen bg-gray-50 py-14 px-4 sm:px-6">
+            <div className="max-w-7xl mx-auto">
 
                 {/* Hero */}
                 <HeroSection />
@@ -431,14 +444,14 @@ export default function ShopPage() {
                 </div>
 
                 {/* Results count */}
-                <p className="text-xs text-gray-400 mb-5">
+                <p className="text-xs text-gray-400 mb-6">
                     {filtered.length} system{filtered.length !== 1 ? 's' : ''} found
                     {selectedCategory !== 'All' && <> in <span className="text-gray-600 font-medium">{selectedCategory}</span></>}
                 </p>
 
                 {/* Grid */}
                 {filtered.length > 0 ? (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                         {filtered.map((product, index) => (
                             <ProductCard key={product.id} product={product} index={index} />
                         ))}
@@ -454,7 +467,7 @@ export default function ShopPage() {
                 )}
 
                 {/* Footer note */}
-                <p className="pb-40 text-center text-xs text-gray-900 mt-14">
+                <p className="pb-40 text-center text-xs text-gray-500 mt-16">
                     All systems include free setup assistance · Local support · Lifetime license
                 </p>
             </div>
