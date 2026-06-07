@@ -304,7 +304,7 @@ export default function ApplicationsPage() {
         <HeroSection />
 
         {/* Applications Grid - 2 columns on mobile, 3 on desktop */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pb-40">
           {myApps.map((app, index) => (
             <AppCard key={index} app={app} index={index} />
           ))}

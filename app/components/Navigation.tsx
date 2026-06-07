@@ -11,6 +11,14 @@ export function Navigation() {
         { href: '#contact', label: 'Contact' },
     ];
 
+    const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+        e.preventDefault();
+        const target = document.querySelector(targetId);
+        if (target) {
+            target.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
     return (
         <nav className="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-md z-50 border-b border-gray-100">
             <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
@@ -22,6 +30,7 @@ export function Navigation() {
                             href={item.href}
                             className="text-gray-700 hover:text-gray-900 transition-colors"
                             scroll={false}
+                            onClick={(e) => handleNavClick(e, item.href)}
                         >
                             {item.label}
                         </Link>
