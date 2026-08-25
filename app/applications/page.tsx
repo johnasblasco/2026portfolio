@@ -1,317 +1,401 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, type KeyboardEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { ImageWithFallback } from '../components/image/ImageWithFallback';
-import { ChevronRight, HandCoins, Users, Calendar, LayoutDashboard, FileText, GraduationCap, ArrowLeft } from 'lucide-react';
+import {
+    Search,
+    Sparkles,
+    GraduationCap,
+    HandCoins,
+    Calendar,
+    LayoutDashboard,
+    FileText,
+    Clapperboard,
+    Bot,
+    ArrowUpRight,
+    LayoutGrid,
+} from 'lucide-react';
 
-// Fade in animation hook
+// ─── Fade-in hook ────────────────────────────────────────────────────────────
+function useFadeIn(index: number, delayStep = 80) {
+    const [isVisible, setIsVisible] = useState(false);
+    const ref = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => setIsVisible(true), index * delayStep);
+                }
+            },
+            { threshold: 0.08 }
+        );
+        if (ref.current) observer.observe(ref.current);
+        return () => { if (ref.current) observer.unobserve(ref.current); };
+    }, [index, delayStep]);
+
+    return { ref, isVisible };
+}
+
 function useInView(threshold = 0.1) {
-  const [inView, setInView] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true);
-        }
-      },
-      { threshold }
-    );
-
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
-
-    return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
-      }
-    };
-  }, [threshold]);
-
-  return { ref, inView };
+    const [inView, setInView] = useState(false);
+    const ref = useRef<HTMLDivElement>(null);
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => { if (entry.isIntersecting) setInView(true); },
+            { threshold }
+        );
+        if (ref.current) observer.observe(ref.current);
+        return () => { if (ref.current) observer.unobserve(ref.current); };
+    }, [threshold]);
+    return { ref, inView };
 }
 
-// Simple fade in animation for each card
-function useFadeIn(index: number, delayStep = 100) {
-  const [isVisible, setIsVisible] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => {
-            setIsVisible(true);
-          }, index * delayStep);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
-
-    return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
-      }
-    };
-  }, [index, delayStep]);
-
-  return { ref, isVisible };
+// ─── Types ───────────────────────────────────────────────────────────────────
+interface AppItem {
+    id: string;
+    name: string;
+    tagline: string;
+    description: string;
+    href: string;
+    external: boolean;
+    tag: string;
+    icon: React.ElementType;
+    color: string;
+    image: string;
+    badge?: string;
 }
 
-const myApps = [
-  {
-    name: 'Certificate Generator',
-    description: 'Demo Certificate Generator for educational purposes',
-    icon: GraduationCap,
-    color: 'bg-teal-500',
-    href: 'https://free-certificate-editor.vercel.app/',
-    tag: 'Education',
-    image: '/project1.png'
-  },
-  {
-    name: 'Expense Tracker',
-    description: 'Simple expense tracking application for personal finance management',
-    icon: HandCoins,
-    color: 'bg-green-500',
-    href: 'https://personal-money-tracker-red.vercel.app',
-    tag: 'Finance',
-    image: 'https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=400&h=250&fit=crop'
-  },
-  {
-    name: 'Student Portal',
-    description: 'Online portal for students to view grades, attendance, and announcements',
-    icon: Users,
-    color: 'bg-red-500',
-    href: '/projects/student-portal',
-    tag: 'Portal',
-    image: 'https://images.unsplash.com/photo-1523050854058-8df90110c9d1?w=400&h=250&fit=crop'
-  },
-  {
-    name: 'Attendance Tracker',
-    description: 'Real-time attendance tracking for schools and organizations',
-    icon: Calendar,
-    color: 'bg-blue-500',
-    href: '/projects/attendance',
-    tag: 'Tracking',
-    image: 'https://images.unsplash.com/photo-1551434678-e076c223a692?w=400&h=250&fit=crop'
-  },
-  {
-    name: 'E-Learning Platform',
-    description: 'Online learning platform with courses, quizzes, and progress tracking',
-    icon: LayoutDashboard,
-    color: 'bg-purple-500',
-    href: '/projects/e-learning',
-    tag: 'Education',
-    image: 'https://images.unsplash.com/photo-1516321497487-e288fb19713f?w=400&h=250&fit=crop'
-  },
-  {
-    name: 'Report Generator',
-    description: 'Automated report generation for school administrations',
-    icon: FileText,
-    color: 'bg-green-500',
-    href: '/projects/reports',
-    tag: 'Automation',
-    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=250&fit=crop'
-  },
+// ─── Applications ────────────────────────────────────────────────────────────
+const myApps: AppItem[] = [
+    {
+        id: 'certificate-generator',
+        name: 'Certificate Generator',
+        tagline: 'Create & customize certificates',
+        description: 'Demo Certificate Generator for educational purposes.',
+        icon: GraduationCap,
+        color: 'from-teal-400 to-teal-600',
+        href: 'https://free-certificate-editor.vercel.app/',
+        external: true,
+        tag: 'Education',
+        badge: 'Live Demo',
+        image: '/project1.png',
+    },
+    {
+        id: 'ai-video-clipping',
+        name: 'AI Video Clipping',
+        tagline: 'Auto-cut highlights from long videos',
+        description: 'AI-powered tool that finds the best moments in long footage and clips them into shareable shorts automatically.',
+        icon: Clapperboard,
+        color: 'from-orange-400 to-orange-600',
+        href: 'https://opus-alternative.lovable.app/studio',
+        external: false,
+        tag: 'AI',
+        image: 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=600&h=400&fit=crop',
+    },
+    {
+        id: 'ai-chatbot',
+        name: 'AI Chatbot',
+        tagline: 'Conversational assistant for any site',
+        description: 'Embeddable AI chatbot that answers questions, handles support queries, and learns from your content in real time.',
+        icon: Bot,
+        color: 'from-indigo-400 to-indigo-600',
+        href: 'https://incognito-chat-bot.lovable.app/c/yxr9z1yi',
+        external: false,
+        tag: 'AI',
+        image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=400&fit=crop',
+    },
+    {
+        id: 'expense-tracker',
+        name: 'Expense Tracker',
+        tagline: 'Personal finance made simple',
+        description: 'Simple expense tracking application for personal finance management.',
+        icon: HandCoins,
+        color: 'from-green-400 to-green-600',
+        href: 'https://personal-money-tracker-red.vercel.app',
+        external: true,
+        tag: 'Finance',
+        image: 'https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=600&h=400&fit=crop',
+    },
+    {
+        id: 'attendance-tracker',
+        name: 'Attendance Tracker',
+        tagline: 'Real-time check-ins & reports',
+        description: 'Real-time attendance tracking for schools and organizations.',
+        icon: Calendar,
+        color: 'from-blue-400 to-blue-600',
+        href: '/projects/attendance',
+        external: false,
+        tag: 'Tracking',
+        image: 'https://images.unsplash.com/photo-1551434678-e076c223a692?w=600&h=400&fit=crop',
+    },
+    {
+        id: 'e-learning-platform',
+        name: 'E-Learning Platform',
+        tagline: 'Courses, quizzes & progress',
+        description: 'Online learning platform with courses, quizzes, and progress tracking.',
+        icon: LayoutDashboard,
+        color: 'from-purple-400 to-purple-600',
+        href: '/projects/e-learning',
+        external: false,
+        tag: 'Education',
+        image: 'https://images.unsplash.com/photo-1516321497487-e288fb19713f?w=600&h=400&fit=crop',
+    },
+    {
+        id: 'report-generator',
+        name: 'Report Generator',
+        tagline: 'Automated school admin reports',
+        description: 'Automated report generation for school administrations.',
+        icon: FileText,
+        color: 'from-emerald-400 to-emerald-600',
+        href: '/projects/reports',
+        external: false,
+        tag: 'Automation',
+        image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop',
+    },
 ];
 
-// Animated stat counter
-function StatCounter({ end, suffix = '', label }: { end: number; suffix?: string; label: string }) {
-  const [count, setCount] = useState(0);
-  const { ref, inView } = useInView(0.5);
+const tags = ['All', ...Array.from(new Set(myApps.map((a) => a.tag)))];
 
-  useEffect(() => {
-    if (!inView) return;
+const badgeColors: Record<string, string> = {
+    'Live Demo': 'bg-teal-50 text-teal-700 border-teal-200',
+};
 
-    const duration = 2000;
-    const startTime = Date.now();
+// ─── App Card ────────────────────────────────────────────────────────────────
+function AppCard({ app, index }: { app: AppItem; index: number }) {
+    const router = useRouter();
+    const { ref, isVisible } = useFadeIn(index, 80);
+    const Icon = app.icon;
 
-    const animate = () => {
-      const elapsed = Date.now() - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-
-      // Ease-out cubic
-      const eased = 1 - Math.pow(1 - progress, 3);
-
-      setCount(Math.floor(eased * end));
-
-      if (progress < 1) {
-        requestAnimationFrame(animate);
-      }
+    const openApp = () => {
+        if (app.external) {
+            window.open(app.href, '_blank', 'noopener,noreferrer');
+        } else {
+            router.push(app.href);
+        }
     };
 
-    requestAnimationFrame(animate);
-  }, [inView, end]);
+    const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openApp(); }
+    };
 
-  return (
-    <div ref={ref} className="text-center">
-      <div className="text-3xl font-bold text-gray-900">
-        {count}{suffix}
-      </div>
-      <div className="text-gray-600">{label}</div>
-    </div>
-  );
-}
+    return (
+        <div
+            ref={ref}
+            onClick={openApp}
+            onKeyDown={handleKeyDown}
+            role="button"
+            tabIndex={0}
+            aria-label={`Open ${app.name}`}
+            className={`group bg-white rounded-3xl border border-gray-100 overflow-hidden cursor-pointer
+        transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-gray-100 hover:border-gray-200
+        focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2
+        ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
+            style={{ transitionDelay: isVisible ? '0ms' : `${index * 80}ms` }}
+        >
+            {/* Image */}
+            <div className="relative h-44 overflow-hidden">
+                <div className={`absolute inset-0 bg-gradient-to-br ${app.color} opacity-10`} />
+                <ImageWithFallback
+                    src={app.image}
+                    alt={app.name}
+                    className="relative z-10 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
 
-// Ripple effect on click
-function RippleEffect({ children }: { children: React.ReactNode }) {
-  const [ripple, setRipple] = useState<{ x: number; y: number } | null>(null);
+                {/* Tag pill */}
+                <span className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm text-gray-700 text-[10px] font-semibold px-3 py-1.5 rounded-full border border-gray-200">
+                    {app.tag}
+                </span>
 
-  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = (e.target as HTMLElement).getBoundingClientRect();
-    setRipple({ x: e.clientX - rect.left, y: e.clientY - rect.top });
-    setTimeout(() => setRipple(null), 600);
-  };
+                {/* Badge */}
+                {app.badge && (
+                    <span className={`absolute top-4 right-4 text-[10px] font-semibold px-3 py-1.5 rounded-full border ${badgeColors[app.badge]}`}>
+                        {app.badge}
+                    </span>
+                )}
 
-  return (
-    <div onClick={handleClick} className="relative overflow-hidden">
-      {children}
-      {ripple && (
-        <span
-          className="absolute rounded-full bg-teal-100 pointer-events-none"
-          style={{
-            left: ripple.x,
-            top: ripple.y,
-            width: '200px',
-            height: '200px',
-            transform: 'translate(-50%, -50%)',
-            animation: 'ripple 0.6s linear',
-          }}
-        />
-      )}
-    </div>
-  );
-}
-
-// Animated app card
-function AppCard({ app, index }: { app: typeof myApps[0]; index: number }) {
-  const router = useRouter();
-  const [isHovered, setIsHovered] = useState(false);
-  const [isActive, setIsActive] = useState(false);
-  const { ref, isVisible } = useFadeIn(index, 100);
-  const Icon = app.icon;
-
-  const handleClick = () => {
-    setIsActive(true);
-    setTimeout(() => router.push(app.href), 100);
-    setTimeout(() => setIsActive(false), 200);
-  };
-
-  return (
-    <RippleEffect>
-      <div
-        ref={ref}
-        onClick={handleClick}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-        className={`bg-white rounded-2xl p-8 shadow-sm border border-gray-100 transition-all duration-500 cursor-pointer group relative overflow-hidden ${isVisible
-          ? 'opacity-100 translate-y-0 scale-100'
-          : 'opacity-0 translate-y-8 scale-95'
-          } ${isActive ? 'ring-2 ring-teal-500 ring-opacity-50' : ''}`}
-        style={{
-          transform: isHovered && isVisible ? 'translateY(-8px)' : 'translateY(0)',
-          transition: 'transform 0.3s ease, opacity 0.6s ease, transform 0.6s ease'
-        }}
-      >
-        {/* Hover Image - appears behind content when hovered */}
-        <div className="absolute inset-0 rounded-2xl overflow-hidden z-0">
-          <ImageWithFallback
-            src={app.image}
-            alt={app.name}
-            className="w-full h-full object-cover scale-110 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-          />
-          {/* Strong dark overlay for better text visibility */}
-          <div className="absolute inset-0 bg-gradient-to-b from-gray-900/80 to-gray-900/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-        </div>
-
-        {/* Content overlay - sits above image, text changes to white on hover */}
-        <div className="relative z-10 transition-all duration-300 group-hover:scale-[1.02] group-hover:text-white">
-          {/* Icon with color background */}
-          <div className="flex items-center justify-between mb-6">
-            <div className={`${app.color} w-14 h-14 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-500 shadow-lg`}>
-              <Icon className="text-white" size={28} />
+                {/* Hover action */}
+                <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+                    <span className="w-9 h-9 bg-gray-900 rounded-full flex items-center justify-center shadow-sm">
+                        <ArrowUpRight size={14} className="text-white" />
+                    </span>
+                </div>
             </div>
-            <span className="text-xs font-medium text-gray-500 bg-white/80 backdrop-blur-sm px-3 py-1 rounded-full group-hover:bg-white/90 group-hover:text-gray-700 transition-colors duration-300">
-              {app.tag}
-            </span>
-          </div>
 
-          <h2 className="text-xl font-bold mb-3 text-gray-900 group-hover:text-white transition-colors duration-300">
-            {app.name}
-          </h2>
-          <p className="text-gray-600 leading-relaxed mb-4 group-hover:text-gray-100 transition-colors duration-300">
-            {app.description}
-          </p>
+            {/* Content */}
+            <div className="p-6">
+                <div className="flex items-start gap-3 mb-3">
+                    <div className={`w-10 h-10 rounded-2xl bg-gradient-to-br ${app.color} flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:scale-105 transition-transform`}>
+                        <Icon size={18} className="text-white" />
+                    </div>
+                    <div className="min-w-0">
+                        <h3 className="text-base font-bold text-gray-900 leading-snug truncate">
+                            {app.name}
+                        </h3>
+                        <p className="text-[11px] text-gray-400 mt-1">{app.tagline}</p>
+                    </div>
+                </div>
 
-          {/* Arrow indicator */}
-          <div className="absolute -bottom-2 -right-2 text-gray-400 group-hover:text-white transition-all duration-300 transform group-hover:translate-x-2">
-            <div className="bg-white/80 backdrop-blur-sm rounded-full p-1 shadow-md group-hover:bg-white">
-              <ChevronRight size={24} />
+                <p className="text-xs text-gray-500 leading-relaxed line-clamp-2">{app.description}</p>
+
+                <div className="mt-5 pt-4 border-t border-gray-50 flex items-center justify-between">
+                    <span className="text-xs font-semibold text-gray-700 group-hover:text-gray-900 transition-colors">
+                        Open App
+                    </span>
+                    <ArrowUpRight size={14} className="text-gray-300 group-hover:text-gray-900 group-hover:translate-x-0.5 transition-all" />
+                </div>
             </div>
-          </div>
         </div>
-
-        {/* Hover glow effect */}
-        <div className="absolute inset-0 bg-gradient-to-br from-teal-50 to-purple-50 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none" />
-      </div>
-    </RippleEffect>
-  );
+    );
 }
 
-// Animated hero section
+// ─── Hero Section ────────────────────────────────────────────────────────────
 function HeroSection() {
-  const { ref, inView } = useInView(0.1);
+    const { ref, inView } = useInView(0.1);
 
-  return (
-    <div
-      ref={ref}
-      className={`text-center mb-16 transition-all duration-800 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-        }`}
-    >
-      <div className="inline-block bg-orange-100 text-orange-600 px-4 py-2 rounded-full mb-6 text-sm font-medium transform hover:scale-105 transition-transform duration-300">
-        My Applications
-      </div>
-      <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-gray-900 mb-4">
-        Application Manager
-      </h1>
-      <p className="text-gray-600 text-lg max-w-3xl mx-auto">
-        A free collection of web applications I've developed for various clients and projects,
-      </p>
+    return (
+        <div
+            ref={ref}
+            className={`mb-16 transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+        >
+            <div className="flex items-center gap-2 bg-orange-100 text-orange-600 px-4 py-2 rounded-full mb-6 w-fit">
+                <Sparkles size={12} />
+                <span className="text-xs font-semibold">My Applications</span>
+            </div>
 
-      {/* Stats with animation */}
-      <div className="flex justify-center gap-8 mt-8">
-        <StatCounter end={myApps.length} suffix="+" label="Applications" />
-        <StatCounter end={6} label="Technologies" />
-        <StatCounter end={100} suffix="%" label="Custom Built" />
-      </div>
-    </div>
-  );
+            <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
+                <div className="max-w-2xl">
+                    <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-4">
+                        Apps I&apos;ve
+                        <br />
+                        <span className="text-teal-400 font-normal">Built & Shipped</span>
+                    </h1>
+                    <p className="text-gray-500 text-base lg:text-lg max-w-xl">
+                        A free collection of web applications I&apos;ve developed for various clients and projects.
+                    </p>
+
+                    <button
+                        onClick={() => document.querySelector('#apps-grid')?.scrollIntoView({ behavior: 'smooth' })}
+                        className="mt-8 cursor-pointer bg-black text-white px-8 py-3 rounded-full hover:bg-gray-800 transition-colors flex items-center justify-center gap-2 w-fit"
+                    >
+                        Explore Apps
+                    </button>
+                </div>
+
+                {/* Stats */}
+                <div className="flex gap-6 lg:gap-8 flex-shrink-0">
+                    {[
+                        { value: `${myApps.length}`, label: 'Applications' },
+                        { value: `${tags.length - 1}`, label: 'Categories' },
+                        { value: '100%', label: 'Custom Built' },
+                    ].map((s) => (
+                        <div key={s.label} className="text-center p-4 bg-white rounded-2xl border border-gray-100 shadow-sm">
+                            <p className="text-xl font-bold text-gray-900">{s.value}</p>
+                            <p className="text-xs text-gray-400 mt-1">{s.label}</p>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    );
 }
 
-
-export default function ApplicationsPage() {
-  return (
-    <div className="min-h-screen bg-white py-20 px-4 sm:px-6">
-      <div className="max-w-7xl mx-auto">
-        {/* Hero Section */}
-        <HeroSection />
-
-        {/* Applications Grid - 2 columns on mobile, 3 on desktop */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pb-40">
-          {myApps.map((app, index) => (
-            <AppCard key={index} app={app} index={index} />
-          ))}
+// ─── Search Bar ──────────────────────────────────────────────────────────────
+function SearchBar({ value, onChange }: { value: string; onChange: (v: string) => void }) {
+    return (
+        <div className="relative">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
+            <input
+                type="text"
+                placeholder="Search applications..."
+                value={value}
+                onChange={(e) => onChange(e.target.value)}
+                className="w-full sm:w-80 pl-12 pr-4 py-3.5 bg-white border border-gray-200 rounded-2xl text-sm text-gray-700 placeholder-gray-400
+          focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-gray-300 transition-all shadow-sm"
+            />
         </div>
+    );
+}
 
+// ─── Tag Filter ──────────────────────────────────────────────────────────────
+function TagFilter({ selected, onSelect }: { selected: string; onSelect: (t: string) => void }) {
+    return (
+        <div className="flex flex-wrap gap-2">
+            {tags.map((tag) => (
+                <button
+                    key={tag}
+                    onClick={() => onSelect(tag)}
+                    className={`px-5 py-2.5 rounded-2xl text-xs font-semibold transition-all duration-200 border cursor-pointer
+            ${selected === tag
+                            ? 'bg-gray-900 text-white border-gray-900'
+                            : 'bg-white text-gray-700 border-gray-200 hover:border-gray-400 hover:bg-gray-50'
+                        }`}
+                >
+                    {tag}
+                </button>
+            ))}
+        </div>
+    );
+}
 
-      </div>
-    </div>
-  );
+// ─── Main Page ───────────────────────────────────────────────────────────────
+export default function ApplicationsPage() {
+    const [selectedTag, setSelectedTag] = useState('All');
+    const [searchTerm, setSearchTerm] = useState('');
+
+    const filtered = myApps.filter((app) => {
+        const matchesTag = selectedTag === 'All' || app.tag === selectedTag;
+        const matchesSearch =
+            app.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            app.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            app.tagline.toLowerCase().includes(searchTerm.toLowerCase());
+        return matchesTag && matchesSearch;
+    });
+
+    return (
+        <div className="min-h-screen bg-gray-50 py-14 px-4 sm:px-6">
+            <div className="max-w-7xl mx-auto">
+
+                {/* Hero */}
+                <HeroSection />
+
+                {/* Toolbar */}
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
+                    <SearchBar value={searchTerm} onChange={setSearchTerm} />
+                    <TagFilter selected={selectedTag} onSelect={setSelectedTag} />
+                </div>
+
+                {/* Results count */}
+                <p className="text-xs text-gray-400 mb-6">
+                    {filtered.length} application{filtered.length !== 1 ? 's' : ''} found
+                    {selectedTag !== 'All' && <> in <span className="text-gray-600 font-medium">{selectedTag}</span></>}
+                </p>
+
+                {/* Grid */}
+                <div id="apps-grid">
+                    {filtered.length > 0 ? (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {filtered.map((app, index) => (
+                                <AppCard key={app.id} app={app} index={index} />
+                            ))}
+                        </div>
+                    ) : (
+                        <div className="text-center py-20">
+                            <div className="w-16 h-16 rounded-2xl bg-white border border-gray-100 flex items-center justify-center mx-auto mb-4 shadow-sm">
+                                <LayoutGrid size={24} className="text-gray-300" />
+                            </div>
+                            <h3 className="text-base font-semibold text-gray-800 mb-1">No applications found</h3>
+                            <p className="text-sm text-gray-400">Try a different search or category.</p>
+                        </div>
+                    )}
+                </div>
+
+                {/* Footer note */}
+                <p className="pb-40 text-center text-xs text-gray-500 mt-16">
+                    All applications are free to try · Built with modern web tech · More coming soon
+                </p>
+            </div>
+        </div>
+    );
 }
