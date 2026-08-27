@@ -13,6 +13,7 @@ import {
     FileText,
     Clapperboard,
     Bot,
+    StickyNote,
     ArrowUpRight,
     LayoutGrid,
 } from 'lucide-react';
@@ -69,6 +70,19 @@ interface AppItem {
 
 // ─── Applications ────────────────────────────────────────────────────────────
 const myApps: AppItem[] = [
+    {
+        id: 'keep',
+        name: 'Keep',
+        tagline: 'Capture notes and ideas in one place',
+        description: 'A streamlined productivity app for organizing notes, ideas, and everyday reminders.',
+        icon: StickyNote,
+        color: 'from-amber-400 to-yellow-500',
+        href: 'https://keep-stacks.vercel.app/',
+        external: true,
+        tag: 'Productivity',
+        badge: 'Live Demo',
+        image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=600&h=400&fit=crop',
+    },
     {
         id: 'certificate-generator',
         name: 'Certificate Generator',
