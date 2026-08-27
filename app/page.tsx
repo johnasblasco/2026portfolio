@@ -32,27 +32,27 @@ const services = [
 ];
 
 const projects = [
-    
+  
     {
         title: 'Operations / Accounting',
         category: 'Web Design',
-        image: '/p3.jpeg'
+        image: '/hris.jpeg'
     },
  
     {
         title: 'B2B PADRELLOS CONSTRUCTION (Project Management, etc.)',
         category: 'Custom Software',
-        image: '/p2.png'
+        image: '/padrellos.png'
     },
     {
         title: 'B2B JMJ SYSTEM (Parsing orders, inventory management, etc.)',
         category: 'Custom Software',
-        image: '/p1.jpeg'
+        image: '/jmj.jpeg'
     },
        {
-        title: 'E-commerce Platform',
-        category: 'Web Design',
-        image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop'
+        title: 'Goverment System',
+        category: 'Custom Software',
+         image: '/lgu.jpeg'
     }
 ];
 

@@ -16,6 +16,12 @@ import {
     StickyNote,
     ArrowUpRight,
     LayoutGrid,
+    UsersRound,
+    School,
+    BookOpenCheck,
+    CalendarHeart,
+    ShoppingCart,
+    FolderOpen,
 } from 'lucide-react';
 
 // ─── Fade-in hook ────────────────────────────────────────────────────────────
@@ -32,8 +38,9 @@ function useFadeIn(index: number, delayStep = 80) {
             },
             { threshold: 0.08 }
         );
-        if (ref.current) observer.observe(ref.current);
-        return () => { if (ref.current) observer.unobserve(ref.current); };
+        const element = ref.current;
+        if (element) observer.observe(element);
+        return () => { if (element) observer.unobserve(element); };
     }, [index, delayStep]);
 
     return { ref, isVisible };
@@ -47,8 +54,9 @@ function useInView(threshold = 0.1) {
             ([entry]) => { if (entry.isIntersecting) setInView(true); },
             { threshold }
         );
-        if (ref.current) observer.observe(ref.current);
-        return () => { if (ref.current) observer.unobserve(ref.current); };
+        const element = ref.current;
+        if (element) observer.observe(element);
+        return () => { if (element) observer.unobserve(element); };
     }, [threshold]);
     return { ref, inView };
 }
@@ -70,6 +78,84 @@ interface AppItem {
 
 // ─── Applications ────────────────────────────────────────────────────────────
 const myApps: AppItem[] = [
+    {
+        id: 'hris',
+        name: 'Human Resource Information System',
+        tagline: 'Manage people, records & HR workflows',
+        description: 'A centralized HRIS for managing employee information and day-to-day human resource operations.',
+        icon: UsersRound,
+        color: 'from-cyan-400 to-blue-600',
+        href: 'https://hris.slarenasitsolutions.com/',
+        external: true,
+        tag: 'Business',
+        badge: 'Live Demo',
+        image: 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=600&h=400&fit=crop',
+    },
+    {
+        id: 'school-management-system',
+        name: 'School Management System',
+        tagline: 'Centralize school operations',
+        description: 'A web-based system that brings essential school administration and academic workflows together.',
+        icon: School,
+        color: 'from-violet-400 to-purple-600',
+        href: 'https://sms.slarenasitsolutions.com/',
+        external: true,
+        tag: 'Education',
+        badge: 'Live Demo',
+        image: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=600&h=400&fit=crop',
+    },
+    {
+        id: 'learning-management-system',
+        name: 'Learning Management System',
+        tagline: 'Deliver and manage learning online',
+        description: 'An online learning platform for organizing courses, educational content, and learner activities.',
+        icon: BookOpenCheck,
+        color: 'from-fuchsia-400 to-pink-600',
+        href: 'https://lms.slarenasitsolutions.com/',
+        external: true,
+        tag: 'Education',
+        badge: 'Live Demo',
+        image: 'https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=600&h=400&fit=crop',
+    },
+    {
+        id: 'hospital-appointment-system',
+        name: 'Hospital Appointment System',
+        tagline: 'Simplify patient appointment booking',
+        description: 'A healthcare scheduling system for coordinating patient appointments and availability.',
+        icon: CalendarHeart,
+        color: 'from-rose-400 to-red-600',
+        href: 'https://hms.slarenasitsolutions.com/',
+        external: true,
+        tag: 'Healthcare',
+        badge: 'Live Demo',
+        image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&h=400&fit=crop',
+    },
+    {
+        id: 'point-of-sale-system',
+        name: 'Point of Sale System',
+        tagline: 'Manage sales in one place',
+        description: 'A streamlined point-of-sale application for processing and managing everyday transactions.',
+        icon: ShoppingCart,
+        color: 'from-orange-400 to-amber-600',
+        href: 'https://pos.slarenasitsolutions.com/',
+        external: true,
+        tag: 'Commerce',
+        badge: 'Live Demo',
+        image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop',
+    },
+    {
+        id: 'file-system',
+        name: 'File System',
+        tagline: 'Organize and retrieve digital files',
+        description: 'A centralized web application for managing, organizing, and accessing digital files.',
+        icon: FolderOpen,
+        color: 'from-sky-400 to-indigo-600',
+        href: 'https://sfrs.slarenasitsolutions.com/',
+        external: true,
+        tag: 'Productivity',
+        badge: 'Live Demo',
+        image: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&h=400&fit=crop',
+    },
     {
         id: 'keep',
         name: 'Keep',
