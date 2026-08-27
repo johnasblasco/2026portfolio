@@ -18,7 +18,7 @@ export function PortfolioSection({ projects }: PortfolioSectionProps) {
         <section id="portfolio" className="py-20 px-6 bg-gray-50">
             <div className="max-w-7xl mx-auto">
                 <div className="text-center mb-16">
-                    <h2 className="text-5xl font-bold mb-4">Portfolio Showcase</h2>
+                    <h2 className="text-5xl font-bold mb-4">Business System Showcase</h2>
                     <p className="text-gray-600 max-w-2xl mx-auto">
                         A selection of my recent work across various domains including web design, mobile apps, and branding.
                     </p>

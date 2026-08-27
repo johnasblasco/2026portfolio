@@ -32,11 +32,13 @@ const services = [
 ];
 
 const projects = [
+    
     {
-        title: 'E-commerce Platform',
+        title: 'Operations / Accounting',
         category: 'Web Design',
-        image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop'
+        image: '/p3.jpeg'
     },
+ 
     {
         title: 'B2B PADRELLOS CONSTRUCTION (Project Management, etc.)',
         category: 'Custom Software',
@@ -45,12 +47,12 @@ const projects = [
     {
         title: 'B2B JMJ SYSTEM (Parsing orders, inventory management, etc.)',
         category: 'Custom Software',
-        image: '/p1.png'
+        image: '/p1.jpeg'
     },
-    {
-        title: 'Dashboard Analytics',
+       {
+        title: 'E-commerce Platform',
         category: 'Web Design',
-        image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop'
+        image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop'
     }
 ];
 
