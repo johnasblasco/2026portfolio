@@ -3,8 +3,9 @@ import { NextRequest, NextResponse } from 'next/server';
 const PAYMONGO_BASE = 'https://api.paymongo.com/v1';
 
 export async function GET(req: NextRequest) {
+    const intentId = req.nextUrl.searchParams.get('intentId');
+
     try {
-        const intentId = req.nextUrl.searchParams.get('intentId');
         const secretKey = process.env.PAYMONGO_SECRET_KEY;
 
         if (!secretKey) {
